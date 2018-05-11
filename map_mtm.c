@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 struct Map_t{
     int size_map;       //count how many node we have
     Node iterator;
