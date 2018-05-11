@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+//daiiiii
 struct Map_t{
     int size_map;       //count how many node we have
     Node iterator;
