@@ -3,6 +3,6 @@
 //
 
 int main(){https://github.com/rotemfriedman/HW3-new.git
-    int x=5;
+    int x=6;
     return 0;
 }
