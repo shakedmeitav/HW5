@@ -10,7 +10,7 @@
 /**
 * Generic Map Container
 *
-* Implements a map container type.
+* Implements map container type.
 * The map has an internal iterator for external use. For all functions
 * where the state of the iterator after calling that function is not stated,
 * it is undefined. That is you cannot assume anything about it.
