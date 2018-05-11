@@ -94,7 +94,7 @@ typedef int(*compareMapKeyElements)(MapKeyElement, MapKeyElement);
 * 		inside the map. Used to check if new elements already exist in the map.
 * @return
 * 	NULL - if one of the parameters is NULL or allocations failed.
-* 	A new Map in case of success.
+* 	A new Map i case of success.
 */
 Map mapCreate(copyMapDataElements copyDataElement, copyMapKeyElements copyKeyElement,
 	freeMapDataElements freeDataElement, freeMapKeyElements freeKeyElement,
