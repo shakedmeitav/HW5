@@ -17,13 +17,13 @@ struct Map_t{
 };
 
 
-
-
-
 //this function get a map. Advances the map iterator to the next key element and returns the key element
 MapKeyElement mapGetNext(Map map){
     MapKeyElement next_key;
-    Node node_next=get_next_iteration(map->iteration);
+    NodeResult node_status;
+    Node node_next=nodeGetNextIteration(map->iterator, &node_status);
+    if( node_status == NODE_NULL_PTR)
+        return NULL;
     map->iterator=node_next;
     next_key= nodeReturnKey(node_next);
     return next_key;

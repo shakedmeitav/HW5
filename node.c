@@ -24,8 +24,7 @@ MapKeyElement nodeReturnKey(Node node, NodeResult *status) {
 
 //return the next node of the current node
 Node nodeGetNextIteration(Node node, NodeResult *status){
-        if( node == NULL )
-        {
+        if( node == NULL ){
             *status= NODE_NULL_PTR;
             return NULL;
         }
