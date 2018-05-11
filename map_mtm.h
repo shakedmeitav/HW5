@@ -1,7 +1,6 @@
 /*
 * map.h
 */
-
 #ifndef MAP_H_
 #define MAP_H_
 
@@ -44,11 +43,11 @@ typedef struct Map_t *Map;
 
 /** Type used for returning error codes from map functions */
 typedef enum MapResult_t {
-	MAP_SUCCESS,
-	MAP_OUT_OF_MEMORY,
-	MAP_NULL_ARGUMENT,
-	MAP_ITEM_ALREADY_EXISTS,
-	MAP_ITEM_DOES_NOT_EXIST
+    MAP_SUCCESS,
+    MAP_OUT_OF_MEMORY,
+    MAP_NULL_ARGUMENT,
+    MAP_ITEM_ALREADY_EXISTS,
+    MAP_ITEM_DOES_NOT_EXIST
 } MapResult;
 
 /** Data element data type for map container */
@@ -94,11 +93,11 @@ typedef int(*compareMapKeyElements)(MapKeyElement, MapKeyElement);
 * 		inside the map. Used to check if new elements already exist in the map.
 * @return
 * 	NULL - if one of the parameters is NULL or allocations failed.
-* 	A new Map i case of success.
+* 	A new Map in case of success.
 */
 Map mapCreate(copyMapDataElements copyDataElement, copyMapKeyElements copyKeyElement,
-	freeMapDataElements freeDataElement, freeMapKeyElements freeKeyElement,
-	compareMapKeyElements compareKeyElements);
+              freeMapDataElements freeDataElement, freeMapKeyElements freeKeyElement,
+              compareMapKeyElements compareKeyElements);
 
 /**
 * mapDestroy: Deallocates an existing map. Clears all elements by using the
