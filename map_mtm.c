@@ -3,7 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-//daiiiii
+
+
 struct Map_t{
     int size_map;       //count how many node we have
     Node iterator;
@@ -14,3 +15,17 @@ struct Map_t{
     freeMapKeyElements  free_key_map;
     compareMapKeyElements compare_key;
 };
+
+
+
+
+
+//this function get a map. Advances the map iterator to the next key element and returns the key element
+MapKeyElement mapGetNext(Map map){
+    MapKeyElement next_key;
+    Node node_next=get_next_iteration(map->iteration);
+    map->iterator=node_next;
+    next_key= nodeReturnKey(node_next);
+    return next_key;
+}
+
