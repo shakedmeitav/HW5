@@ -17,15 +17,18 @@ struct Map_t{
 };
 
 
-//this function get a map. Advances the map iterator to the next key element and returns the key element
-MapKeyElement mapGetNext(Map map){
-    MapKeyElement next_key;
-    NodeResult node_status;
-    Node node_next=nodeGetNextIteration(map->iterator, &node_status);
-    if( node_status == NODE_NULL_PTR)
+//Sets the internal iterator (also called current key element) to
+//the first key element in the map
+MapKeyElement mapGetFirst(Map map) {
+    if (map == NULL) {
         return NULL;
-    map->iterator=node_next;
-    next_key= nodeReturnKey(node_next);
-    return next_key;
+    } else if (map->first_pointer == NULL) {          //check if map is empty;
+        return NULL;
+    }
+    map->iterator = map->first_pointer;              //set the iterator in the first node;
+    NodeResult *status;
+    return nodeReturnKey(map->first_pointer,status);
 }
+
+
 
