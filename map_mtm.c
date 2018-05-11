@@ -5,7 +5,7 @@
 #include <string.h>
 
 struct Map_t{
-    int size_map;       //count how many node we have
+    int size_map;                         //count how many node we have
     Node iterator;
     Node first_pointer;
     copyMapDataElements copy_data;
@@ -16,18 +16,19 @@ struct Map_t{
 };
 
 
-//Sets the internal iterator (also called current key element) to
-//the first key element in the map
-MapKeyElement mapGetFirst(Map map) {
-    if (map == NULL) {
+//this function get a map. Advances the map iterator to the next key element and returns the key element
+MapKeyElement mapGetNext(Map map){
+    if (map == NULL)
         return NULL;
-    } else if (map->first_pointer == NULL) {          //check if map is empty;
+    MapKeyElement next_key;
+    NodeResult node_status;
+    Node node_next=nodeGetNextIteration(map->iterator, &node_status);
+    if( node_status == NODE_NULL_PTR)
         return NULL;
-    }
-    map->iterator = map->first_pointer;              //set the iterator in the first node;
-    NodeResult *status;
-    return nodeReturnKey(map->first_pointer,status);
+    map->iterator=node_next;
+    next_key= nodeReturnKey(node_next,&node_status);
+    if(node_status == NODE_NULL_PTR)
+        return NULL;
+    return next_key;
 }
-
-
 
