@@ -109,15 +109,13 @@ MapResult mapClear(Map map){
 }
 
 
-
-
 //Returns the data associated with a specific key in the map.
 //Iterator status unchanged
 MapDataElement mapGet(Map map, MapKeyElement keyElement){
     if (map == NULL || keyElement == NULL){
         return NULL;
     }
-    NodeResult *status;
+    NodeResult *status=NULL;
     MAP_FOREACH(Node,iterator,map){
         if(map->compare_key(nodeReturnKey (map->iterator,status),keyElement)==0) {
             if (*status == NODE_NULL_ARGUMENT) {
@@ -128,6 +126,19 @@ MapDataElement mapGet(Map map, MapKeyElement keyElement){
         }
         return NULL;
     }
+}
+
+//Checks if a key element exists in the map
+bool mapContains(Map map, MapKeyElement element){
+    if(map==NULL ||element==NULL)
+        return NULL;
+    NodeResult *status=NULL;
+    MAP_FOREACH(Node,iterator,map){
+        if(map->compare_key(nodeReturnKey(map->iterator,status),element)==0)
+            return true;
+    }
+    return false;
+
 }
 
 
