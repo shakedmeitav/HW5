@@ -68,3 +68,20 @@ NodeResult nodeDestroy(Node first_pointer,freeMapDataElements freeDataElement, f
     }
     return NODE_SUCCESS;
 }
+
+// * the function destory only one node(the one after the input),
+// include the key and the data, and free.
+NodeResult nodeDestroyOne(Node nodeBeforeDestroy,
+                          freeMapDataElements freeDataElement,
+                          freeMapKeyElements freeKeyElement){
+    if (nodeBeforeDestroy == NULL ||  freeDataElement == NULL ||
+            freeKeyElement == NULL){
+        return NODE_NULL_PTR;
+    }
+    Node temp = nodeBeforeDestroy->next;
+    nodeBeforeDestroy->next = temp->next;
+    freeDataElement(temp->data_element);
+    freeKeyElement(temp->key_element);
+    free(temp);
+    return NODE_SUCCESS;
+}

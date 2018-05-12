@@ -117,16 +117,14 @@ MapDataElement mapGet(Map map, MapKeyElement keyElement){
     }
     NodeResult *status=NULL;
     MAP_FOREACH(Node,iterator,map){
-        if(map->compare_key(nodeReturnKey (map->iterator,status),keyElement)==0) {
-            if (*status == NODE_NULL_ARGUMENT) {
-                return NULL;
-            } else {
+        if(map->compare_key(nodeReturnKey(map->iterator,status),keyElement)==0){
+
                 return nodeReturnData(map->iterator, status);
             }
         }
         return NULL;
     }
-}
+
 
 //Checks if a key element exists in the map
 bool mapContains(Map map, MapKeyElement element){
@@ -140,6 +138,30 @@ bool mapContains(Map map, MapKeyElement element){
     return false;
 
 }
+
+// Removes a pair of key and data elements from the map
+    MapResult mapRemove(Map map, MapKeyElement keyElement){
+        if(map==NULL ||keyElement==NULL){
+            return MAP_NULL_ARGUMENT;
+        }
+        Node nodeBefore = map->first_pointer;
+        int success=0;                    //flag- 0 if not find the key else 1
+    NodeResult *status=NULL;
+    MAP_FOREACH(Node,iterator,map){
+            if(map->compare_key(keyElement,nodeReturnKey(map->iterator,status))==0){
+                success=1;
+                nodeDestroyOne(nodeBefore, map-> free_data_map,map->free_key_map);
+                break;
+            }
+            nodeBefore = map->iterator;
+        }//end of the map_foreach
+        map->iterator=NULL;
+        if(success==0) //if we didnt found the right key in the map;
+            return MAP_ITEM_DOES_NOT_EXIST;
+        else
+            return MAP_SUCCESS;
+
+    }
 
 
 //function that copy the data from type string

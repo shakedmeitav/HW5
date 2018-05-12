@@ -52,3 +52,15 @@ MapDataElement nodeReturnData(Node node, NodeResult *status);
  */
 NodeResult nodeDestroy(Node first_pointer,freeMapDataElements freeDataElement,
                        freeMapKeyElements freeKeyElement);
+
+/**
+ * the function destory only one node(the one after the input),
+ * include the key and the data, and free.
+ * @param nodeBeforeDestroy
+ * @param freeDataElement
+ * @param freeKeyElement
+ * @return NODE_NULL_PTRif one of the param is NULL, else NODE_SUCCESS
+ */
+NodeResult nodeDestroyOne(Node nodeBeforeDestroy,
+                          freeMapDataElements freeDataElement,
+                          freeMapKeyElements freeKeyElement);
