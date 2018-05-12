@@ -9,7 +9,10 @@
 
 int main() {
 
-    Node new_node = createNode(3, "string");
+    Map new_map = mapCreate(copyMapDataString, copyMapKeyInt,
+    freeMapDataString, freeMapKeyInt, compareMapKeyInt);
+    mapDestroy(new_map);
+   //Node new_node = createNode(3, "string");
 
     return 0;
 }

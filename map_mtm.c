@@ -45,6 +45,9 @@ void mapDestroy(Map map){
     if (map == NULL)
         return;
     MapResult status = mapClear(map);                  //here the status isn't relavant, because we allready check if map is NULL
+    if(status == MAP_NULL_ARGUMENT){
+        return;
+    }
     free(map);
 }
 
@@ -92,12 +95,17 @@ return next_key;
 
 //Removes all key and data elements from target map
 MapResult mapClear(Map map){
-        MapResult status;
         if (map == NULL){
             return MAP_NULL_ARGUMENT;
         }
-        nodeDestroy(map->first_pointer,map-> free_data_map, map-> free_key_map);
+
+    NodeResult node_status;
+    node_status = nodeDestroy(map->first_pointer,map-> free_data_map, map-> free_key_map);
+    if(node_status == NODE_NULL_PTR){
+        return MAP_NULL_ARGUMENT;
+    } else {
         return MAP_SUCCESS;
+    }
 }
 
 
@@ -148,9 +156,9 @@ void freeMapKeyInt(MapKeyElement key){
 
 //compare a  2 keys, values from int
 int compareMapKeyInt(MapKeyElement key1, MapKeyElement key2) {
-    if (((int) key1) > ((int) key2)) {
+    if (key1 > key2) {
         return 1;
-    } else if (((int) key1) == ((int) key2)) {
+    } else if (key1 == key2) {
         return 0;
     } else {
         return -1;

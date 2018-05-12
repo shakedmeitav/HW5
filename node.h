@@ -11,12 +11,6 @@ typedef enum NodeResult_t {
 } NodeResult;
 
 
-/** Data element data type for map container */
-typedef void* MapDataElement;
-
-/** Key element data type for map container */
-typedef void* MapKeyElement;
-
 /**
  * the function get a node and return his key
  * @param node - a node that sent to the function
