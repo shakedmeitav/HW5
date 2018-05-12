@@ -67,3 +67,38 @@ return NULL;
 return next_key;
 }
 
+
+
+//function that copy the data from type string
+MapDataElement copyMapDataString(MapDataElement data) {
+    char * new_string=malloc(sizeof(char)*strlen(data)+1);
+    strcpy(new_string,((char *)data));
+    return new_string;
+}
+
+//function that copy the key from type int
+MapKeyElement copyMapKeyInt (MapKeyElement key) {
+    int new_key=(int)key;
+    return key;
+}
+
+//free a data from type string
+void freeMapDataString(MapDataElement data){
+    free(data);
+}
+
+//free a kew from type int
+void freeMapKeyInt(MapKeyElement key){
+    return;
+}
+
+//compare a  2 keys, values from int
+int compareMapKeyInt(MapKeyElement key1, MapKeyElement key2) {
+    if (((int) key1) > ((int) key2)) {
+        return 1;
+    } else if (((int) key1) == ((int) key2)) {
+        return 0;
+    } else {
+        return -1;
+    }
+}

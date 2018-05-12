@@ -231,6 +231,15 @@ MapKeyElement mapGetNext(Map map);
 */
 MapResult mapClear(Map map);
 
+
+MapDataElement copyMapDataString(MapDataElement data);              //function that copy the data from type string
+MapKeyElement copyMapKeyInt (MapKeyElement key);                   //function that copy the key from type int
+void freeMapDataString(MapDataElement data);                       //free a data from type string
+void freeMapKeyInt(MapKeyElement key);                            //free a kew from type int
+int compareMapKeyInt(MapKeyElement key1, MapKeyElement key2);     //compare a  2 keys, values from int
+
+
+
 /*!
 * Macro for iterating over a map.
 * Declares a new iterator for the loop.
