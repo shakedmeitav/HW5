@@ -68,6 +68,18 @@ return next_key;
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 //function that copy the data from type string
 MapDataElement copyMapDataString(MapDataElement data) {
     char * new_string=malloc(sizeof(char)*strlen(data)+1);

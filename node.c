@@ -44,7 +44,7 @@ Node createNode(MapKeyElement key_element, MapDataElement data_element) {
     return newNode;
 }
 
-
+//the function return the data of the node input
 MapDataElement nodeReturnData(Node node, NodeResult *status) {
     if (node == NULL) {
         *status = NODE_NULL_ARGUMENT;
@@ -52,4 +52,19 @@ MapDataElement nodeReturnData(Node node, NodeResult *status) {
     }
     *status = NODE_SUCCESS;
     return node->data_element;
+}
+
+
+NodeResult nodeDestroy(Node first_pointer,freeMapDataElements freeDataElement, freeMapKeyElements freeKeyElement ){
+    if(first_pointer==NULL) {
+        return NODE_NULL_PTR;
+    }
+    while(first_pointer) {
+        Node toDelete = first_pointer;
+        first_pointer = first_pointer->next;
+        freeDataElement(toDelete ->data_element);
+        freeKeyElement(toDelete ->key_element);
+        free(toDelete);
+    }
+    return NODE_SUCCESS;
 }
