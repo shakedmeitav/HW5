@@ -20,6 +20,11 @@ struct Map_t{
 Map mapCreate(copyMapDataElements copyDataElement, copyMapKeyElements copyKeyElement,
               freeMapDataElements freeDataElement, freeMapKeyElements freeKeyElement,
               compareMapKeyElements compareKeyElements) {
+    if(copyDataElement == NULL || copyKeyElement == NULL ||
+            freeDataElement == NULL || freeKeyElement == NULL ||
+            compareKeyElements == NULL){
+        return NULL;
+    }
     Map new_map = malloc(sizeof(*new_map));
     if (new_map == NULL) {
         return NULL;
@@ -35,6 +40,24 @@ Map mapCreate(copyMapDataElements copyDataElement, copyMapKeyElements copyKeyEle
     return new_map;
 }
 
+//Deallocates an existing map
+void mapDestroy(Map map){
+    if (map == NULL)
+        return;
+    MapResult status = mapClear(map);                  //here the status isn't relavant, because we allready check if map is NULL
+    free(map);
+}
+
+
+//return the number of elements in a map.
+//return -1 if a NULL pointer was sent.
+int mapGetSize(Map map) {
+    if (map == NULL) {
+        return -1;
+    } else {
+        return map->size_map;
+    }
+}
 
 //Sets the internal iterator (also called current key element) to
 //the first key element in the map
@@ -67,17 +90,15 @@ return NULL;
 return next_key;
 }
 
-
-
-
-
-
-
-
-
-
-
-
+//Removes all key and data elements from target map
+MapResult mapClear(Map map){
+        MapResult status;
+        if (map == NULL){
+            return MAP_NULL_ARGUMENT;
+        }
+        nodeDestroy(map->first_pointer,map-> free_data_map, map-> free_key_map);
+        return MAP_SUCCESS;
+}
 
 
 //function that copy the data from type string

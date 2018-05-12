@@ -9,6 +9,10 @@
 
 int main() {
 
-    //createNode(3, "rotem");
+    Map new_map = mapCreate(copyMapDataString, copyMapKeyInt,
+    freeMapDataString, freeMapKeyInt, compareMapKeyInt);
+
+  // Node new_node = createNode(3, "string");
+
     return 0;
 }
