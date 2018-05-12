@@ -16,8 +16,6 @@ typedef void* MapDataElement;
 /** Key element data type for map container */
 typedef void* MapKeyElement;
 
-
-
 /**
  * the function get a node and return his key
  * @param node - a node that sent to the function
@@ -26,7 +24,6 @@ typedef void* MapKeyElement;
  */
 MapKeyElement nodeReturnKey(Node node,NodeResult *status);
 
-
 /**
  * return the next node of the current node
  * @param node - the node that we want to take his next address
@@ -34,3 +31,19 @@ MapKeyElement nodeReturnKey(Node node,NodeResult *status);
  * @return the next node
  */
 Node nodeGetNextIteration(Node node, NodeResult *status);
+
+/**
+ * create a new node with the param
+ * @param key_element
+ * @param data_element
+ * @return new node
+ */
+Node createNode(MapKeyElement key_element, MapDataElement data_element);
+
+/**
+ * the function get a node and return his data_element
+ * @param node
+ * @param status
+ * @return NULL if node=NULL else return data_element of the node
+ */
+MapDataElement nodeReturnData(Node node, NodeResult *status);

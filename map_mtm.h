@@ -24,7 +24,8 @@
 *   mapPut		    - Gives a specific key a given value.
 *   				  If the key exists, the value is overridden.
 *   				  This resets the internal iterator.
-*   mapGet  	    - Returns the data paired to a key which matches the given key.
+*   mapGet  	    - Returns the data paired to a key which matches the given
+ *   key.
 *					  Iterator status unchanged
 *   mapRemove		- Removes a pair of (key,data) elements for which the key
 *                    matches a given element (by the key compare function).
@@ -81,15 +82,20 @@ typedef int(*compareMapKeyElements)(MapKeyElement, MapKeyElement);
 /**
 * mapCreate: Allocates a new empty map.
 *
-* @param copyDataElement - Function pointer to be used for copying data elements into
+* @param copyDataElement - Function pointer to be used for copying data elements
+ * into
 *  	the map or when copying the map.
-* @param copyKeyElement - Function pointer to be used for copying key elements into
+* @param copyKeyElement - Function pointer to be used for copying key elements
+ * into
 *  	the map or when copying the map.
-* @param freeDataElement - Function pointer to be used for removing data elements from
+* @param freeDataElement - Function pointer to be used for removing data
+ * elements from
 * 		the map
-* @param freeKeyElement - Function pointer to be used for removing key elements from
+* @param freeKeyElement - Function pointer to be used for removing key elements
+ * from
 * 		the map
-* @param compareKeyElements - Function pointer to be used for comparing key elements
+* @param compareKeyElements - Function pointer to be used for comparing key
+ * elements
 * 		inside the map. Used to check if new elements already exist in the map.
 * @return
 * 	NULL - if one of the parameters is NULL or allocations failed.
