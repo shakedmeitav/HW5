@@ -16,6 +16,25 @@ struct Map_t{
 };
 
 
+//Allocates a new empty map
+Map mapCreate(copyMapDataElements copyDataElement, copyMapKeyElements copyKeyElement,
+              freeMapDataElements freeDataElement, freeMapKeyElements freeKeyElement,
+              compareMapKeyElements compareKeyElements) {
+    Map new_map = malloc(sizeof(*new_map));
+    if (new_map == NULL) {
+        return NULL;
+    }
+    new_map->copy_data = copyDataElement;
+    new_map->copy_key = copyKeyElement;
+    new_map->free_data_map = freeDataElement;
+    new_map->free_key_map = freeKeyElement;
+    new_map->compare_key = compareKeyElements;
+    new_map->size_map = 0;
+    new_map->iterator = NULL;
+    new_map->first_pointer = NULL;
+    return new_map;
+}
+
 
 //Sets the internal iterator (also called current key element) to
 //the first key element in the map
