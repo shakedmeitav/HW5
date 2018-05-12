@@ -1,3 +1,4 @@
+#include"map_mtm.h"
 
 typedef struct node *Node;
 
@@ -47,3 +48,13 @@ Node createNode(MapKeyElement key_element, MapDataElement data_element);
  * @return NULL if node=NULL else return data_element of the node
  */
 MapDataElement nodeReturnData(Node node, NodeResult *status);
+
+/**
+ * the function destroy the node input
+ * @param first_pointer
+ * @param freeDataElement
+ * @param freeKeyElement
+ * @return NODE_NULL_PTR if first_pointer and else return NODE_SUCCESS
+ */
+NodeResult nodeDestroy(Node first_pointer,freeMapDataElements freeDataElement,
+                       freeMapKeyElements freeKeyElement);
