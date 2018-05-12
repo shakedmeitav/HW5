@@ -101,6 +101,28 @@ MapResult mapClear(Map map){
 }
 
 
+
+
+//Returns the data associated with a specific key in the map.
+//Iterator status unchanged
+MapDataElement mapGet(Map map, MapKeyElement keyElement){
+    if (map == NULL || keyElement == NULL){
+        return NULL;
+    }
+    NodeResult *status;
+    MAP_FOREACH(Node,iterator,map){
+        if(map->compare_key(nodeReturnKey (map->iterator,status),keyElement)==0) {
+            if (*status == NODE_NULL_ARGUMENT) {
+                return NULL;
+            } else {
+                return nodeReturnData(map->iterator, status);
+            }
+        }
+        return NULL;
+    }
+}
+
+
 //function that copy the data from type string
 MapDataElement copyMapDataString(MapDataElement data) {
     char * new_string=malloc(sizeof(char)*strlen(data)+1);
