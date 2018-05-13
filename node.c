@@ -90,8 +90,8 @@ NodeResult nodeDestroy(Node first_pointer,freeMapDataElements freeDataElement, f
     return NODE_SUCCESS;
 }
 
-// * the function destory only one node(the one after the input),
-// include the key and the data, and free.
+// the function destory only one node(the one after the input),
+// include the key and the data, and free
 NodeResult nodeDestroyOne(Node nodeBeforeDestroy,
                           freeMapDataElements freeDataElement,
                           freeMapKeyElements freeKeyElement){
@@ -105,4 +105,13 @@ NodeResult nodeDestroyOne(Node nodeBeforeDestroy,
     freeKeyElement(temp->key_element);
     free(temp);
     return NODE_SUCCESS;
+}
+
+//get a node, and a key, and update the key feild
+void nodeUpdateKey (Node node, MapKeyElement key_element, NodeResult * status){
+  if ( node == NULL || key_element == NULL){
+      *status = NODE_NULL_PTR;
+      return;
+  }
+    node->key_element=key_element;
 }
