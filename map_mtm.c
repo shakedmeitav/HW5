@@ -278,10 +278,10 @@ MapResult mapPut(Map map, MapKeyElement keyElement, MapDataElement dataElement) 
         }
         Node nodeBefore = map->first_pointer;
         int success = 0;                    //flag- 0 if not find the key else 1
-        NodeResult *status = NULL;
+        NodeResult status;
         MAP_FOREACH(Node, iterator, map) {
             if (map->compare_key(keyElement,
-                                 nodeReturnKey(map->iterator, status)) == 0) {
+                                 nodeReturnKey(map->iterator, &status)) == 0) {
                 success = 1;
                 nodeDestroyOne(nodeBefore, map->free_data_map,
                                map->free_key_map);
