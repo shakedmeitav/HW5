@@ -1,8 +1,18 @@
-//
-// Created by Shaked on 5/11/2018.
-//
+#include<stdio.h>
+#include<stdlib.h>
+#include"node.h"
+#include"map_mtm.h"
+#include<assert.h>
+#include<string.h>
+#include <string.h>
 
-int main(){https://github.com/rotemfriedman/HW3-new.git
-    int x=6;
+
+int main() {
+
+    Map new_map = mapCreate(copyMapDataString, copyMapKeyInt,
+    freeMapDataString, freeMapKeyInt, compareMapKeyInt);
+    mapDestroy(new_map);
+    //Node new_node = createNode(3, "string");
+
     return 0;
 }
