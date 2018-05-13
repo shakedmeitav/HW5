@@ -55,8 +55,8 @@ MapDataElement nodeReturnData(Node node, NodeResult *status);
  * @param freeKeyElement
  * @return NODE_NULL_PTR if first_pointer and else return NODE_SUCCESS
  */
-NodeResult nodeDestroy(Node first_pointer,freeMapDataElements freeDataElement,
-                       freeMapKeyElements freeKeyElement);
+Node nodeDestroy(Node first_pointer,freeMapDataElements freeDataElement,
+                 freeMapKeyElements freeKeyElement, NodeResult *status);
 
 /**
  * get a data, and a node, and updata that node->data=data

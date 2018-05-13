@@ -57,7 +57,6 @@ Map mapCopy(Map map) {
     Node node_first = createNode(key_first,data_first);
     Node previous_node = node_first;
     new_map->first_pointer=node_first;
-    new_map->size_map+=1;
     new_map->iterator=node_first;
 
     MAP_FOREACH(Node,iterator, map){
@@ -66,11 +65,11 @@ Map mapCopy(Map map) {
         Node new_node = createNode(new_key, new_data);
         Node next= nodeGetNextIteration( previous_node,&status_node);
         next=new_node;
-        new_map->size_map += 1;
         previous_node = new_node;
     }
     new_map->iterator = NULL;
     map->iterator = NULL;
+new_map->size_map=map->size_map;
     return new_map;
 }
 
@@ -83,7 +82,12 @@ void mapDestroy(Map map){
     if(status == MAP_NULL_ARGUMENT){
         return;
     }
-    free(map);
+    map->compare_key=NULL;
+    map->copy_key=NULL;
+    map->copy_data=NULL;
+    map->free_key_map=NULL;
+    map->free_data_map=NULL;
+   free(map);
 }
 
 //return the number of elements in a map.
@@ -195,16 +199,16 @@ MapResult mapPut(Map map, MapKeyElement keyElement, MapDataElement dataElement) 
 //Sets the internal iterator (also called current key element) to
 //the first key element in the map
     MapKeyElement mapGetFirst(Map map) {
-        if (map == NULL) {
-            return NULL;
-        } else if (map->first_pointer ==
-                   NULL) {          //check if map is empty;
-            return NULL;
-        }
+    if (map == NULL) {
+        return NULL;
+    } else if (map->first_pointer == NULL) {          //check if map is empty;
+        return NULL;
+    } else {
         map->iterator = map->first_pointer;              //set the iterator in the first node;
         NodeResult status;
         return nodeReturnKey(map->first_pointer, &status);
     }
+}
 
 
 //this function get a map. Advances the map iterator to the next key element and returns the key element
@@ -223,21 +227,22 @@ MapResult mapPut(Map map, MapKeyElement keyElement, MapDataElement dataElement) 
         return next_key;
     }
 
-//Removes all key and data elements from target map
-    MapResult mapClear(Map map) {
-        if (map == NULL) {
-            return MAP_NULL_ARGUMENT;
-        }
-
-        NodeResult node_status;
-        node_status = nodeDestroy(map->first_pointer, map->free_data_map,
-                                  map->free_key_map);
-        if (node_status == NODE_NULL_PTR) {
-            return MAP_NULL_ARGUMENT;
-        } else {
-            return MAP_SUCCESS;
-        }
+///Removes all key and data elements from target map
+MapResult mapClear(Map map) {
+    if (map == NULL) {
+        return MAP_NULL_ARGUMENT;
     }
+
+    NodeResult node_status;
+    Node new_first_pointer= nodeDestroy(map->first_pointer, map->free_data_map,
+                              map->free_key_map,&node_status);
+    map->first_pointer=new_first_pointer;
+    if (node_status == NODE_NULL_PTR) {
+        return MAP_NULL_ARGUMENT;
+    } else {
+        return MAP_SUCCESS;
+    }
+}
 
 
 //Returns the data associated with a specific key in the map.
