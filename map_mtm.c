@@ -152,8 +152,7 @@ MapResult mapPut(Map map, MapKeyElement keyElement, MapDataElement dataElement) 
                 return MAP_SUCCESS;
             }
             Node temp = map->iterator;                                           //save the address of this node, before we increae the iterator
-            map->iterator = nodeGetNextIteration(map->iterator,
-                                                 &status_node);   //increase the iterator
+            map->iterator = nodeGetNextIteration(map->iterator, &status_node);   //increase the iterator
             if (status_node == NODE_NULL_PTR) {                                //it is mean that map->iterator=NULL, we have only one node
                 nodeUpdateNext(map->first_pointer, new_node,
                                &status_node);   //the status_node supposed to be NODE_SUCCESS
