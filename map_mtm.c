@@ -40,6 +40,42 @@ Map mapCreate(copyMapDataElements copyDataElement, copyMapKeyElements copyKeyEle
     return new_map;
 }
 
+//reates a copy of target map.
+//Iterator values for both maps is undefined after this operation.
+Map mapCopy(Map map) {
+    NodeResult status_node;
+    Map new_map = mapCreate(map->copy_data, map->copy_key, map->free_data_map,
+                            map->free_key_map, map->compare_key);
+    if (new_map == NULL) {
+        return NULL;
+    }
+    MapKeyElement key_first = nodeReturnKey(map->first_pointer,&status_node);
+    if (status_node == NODE_NULL_ARGUMENT) {
+        return new_map;                   // its mean that we dont have a nodes
+    }
+    MapDataElement data_first= nodeReturnData(map->first_pointer,&status_node);
+    //no need to check if status is NULL, already check for first pointer,
+    Node node_first = createNode(key_first,data_first);
+    Node previous_node = node_first;
+    new_map->first_pointer=node_first;
+    new_map->size_map+=1;
+    new_map->iterator=node_first;
+
+    MAP_FOREACH(Node,iterator, map){
+        MapKeyElement new_key = nodeReturnKey(map->iterator,&status_node);
+        MapDataElement new_data = nodeReturnData(map->iterator,&status_node);
+        Node new_node = createNode(new_key, new_data);
+        Node next= nodeGetNextIteration( previous_node,&status_node);
+        next=new_node;
+        new_map->size_map += 1;
+        previous_node = new_node;
+    }
+    new_map->iterator = NULL;
+    map->iterator = NULL;
+    return new_map;
+}
+
+
 //Deallocates an existing map
 void mapDestroy(Map map){
     if (map == NULL)
