@@ -39,6 +39,42 @@ Map mapCreate(copyMapDataElements copyDataElement, copyMapKeyElements copyKeyEle
     return new_map;
 }
 
+//reates a copy of target map.
+//Iterator values for both maps is undefined after this operation.
+Map mapCopy(Map map) {
+    NodeResult status_node;
+    Map new_map = mapCreate(map->copy_data, map->copy_key, map->free_data_map,
+                            map->free_key_map, map->compare_key);
+    if (new_map == NULL) {
+        return NULL;
+    }
+    MapKeyElement key_first = nodeReturnKey(map->first_pointer,&status_node);
+    if (status_node == NODE_NULL_ARGUMENT) {
+        return new_map;                   // its mean that we dont have a nodes
+    }
+    MapDataElement data_first= nodeReturnData(map->first_pointer,&status_node);
+    //no need to check if status is NULL, already check for first pointer,
+    Node node_first = createNode(key_first,data_first);
+    Node previous_node = node_first;
+    new_map->first_pointer=node_first;
+    new_map->size_map+=1;
+    new_map->iterator=node_first;
+
+    MAP_FOREACH(Node,iterator, map){
+        MapKeyElement new_key = nodeReturnKey(map->iterator,&status_node);
+        MapDataElement new_data = nodeReturnData(map->iterator,&status_node);
+        Node new_node = createNode(new_key, new_data);
+        Node next= nodeGetNextIteration( previous_node,&status_node);
+        next=new_node;
+        new_map->size_map += 1;
+        previous_node = new_node;
+    }
+    new_map->iterator = NULL;
+    map->iterator = NULL;
+    return new_map;
+}
+
+
 //Deallocates an existing map
 void mapDestroy(Map map){
     if (map == NULL)
@@ -49,7 +85,6 @@ void mapDestroy(Map map){
     }
     free(map);
 }
-
 
 //return the number of elements in a map.
 //return -1 if a NULL pointer was sent.
@@ -195,18 +230,53 @@ MapDataElement mapGet(Map map, MapKeyElement keyElement){
     if (map == NULL || keyElement == NULL){
         return NULL;
     }
-    NodeResult *status;
+    NodeResult *status=NULL;
     MAP_FOREACH(Node,iterator,map){
-        if(map->compare_key(nodeReturnKey (map->iterator,status),keyElement)==0) {
-            if (*status == NODE_NULL_ARGUMENT) {
-                return NULL;
-            } else {
+        if(map->compare_key(nodeReturnKey(map->iterator,status),keyElement)==0){
+
                 return nodeReturnData(map->iterator, status);
             }
         }
         return NULL;
     }
+
+
+//Checks if a key element exists in the map
+bool mapContains(Map map, MapKeyElement element){
+    if(map==NULL ||element==NULL)
+        return NULL;
+    NodeResult *status=NULL;
+    MAP_FOREACH(Node,iterator,map){
+        if(map->compare_key(nodeReturnKey(map->iterator,status),element)==0)
+            return true;
+    }
+    return false;
+
 }
+
+// Removes a pair of key and data elements from the map
+    MapResult mapRemove(Map map, MapKeyElement keyElement){
+        if(map==NULL ||keyElement==NULL){
+            return MAP_NULL_ARGUMENT;
+        }
+        Node nodeBefore = map->first_pointer;
+        int success=0;                    //flag- 0 if not find the key else 1
+    NodeResult *status=NULL;
+    MAP_FOREACH(Node,iterator,map){
+            if(map->compare_key(keyElement,nodeReturnKey(map->iterator,status))==0){
+                success=1;
+                nodeDestroyOne(nodeBefore, map-> free_data_map,map->free_key_map);
+                break;
+            }
+            nodeBefore = map->iterator;
+        }//end of the map_foreach
+        map->iterator=NULL;
+        if(success==0) //if we didnt found the right key in the map;
+            return MAP_ITEM_DOES_NOT_EXIST;
+        else
+            return MAP_SUCCESS;
+
+    }
 
 
 //function that copy the data from type string
