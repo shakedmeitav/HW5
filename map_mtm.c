@@ -217,7 +217,7 @@ MapResult mapPut(Map map, MapKeyElement keyElement, MapDataElement dataElement) 
         if (node_status == NODE_NULL_PTR)
             return NULL;
         map->iterator = node_next;
-        next_key = nodeReturnKey(node_next, &node_status);
+        next_key = nodeReturnKey(node_next,&node_status);
         if (node_status == NODE_NULL_PTR)
             return NULL;
         return next_key;
@@ -292,9 +292,10 @@ MapResult mapPut(Map map, MapKeyElement keyElement, MapDataElement dataElement) 
         map->iterator = NULL;
         if (success == 0) //if we didnt found the right key in the map;
             return MAP_ITEM_DOES_NOT_EXIST;
-        else
+        else {
+            map->size_map--;
             return MAP_SUCCESS;
-
+        }
     }
 
 
