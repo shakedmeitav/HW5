@@ -11,8 +11,8 @@ int main() {
 
     Map new_map = mapCreate(copyMapDataString, copyMapKeyInt,
     freeMapDataString, freeMapKeyInt, compareMapKeyInt);
-
-    Map copymap=mapCopy(new_map);
+    mapDestroy(new_map);
+    //Node new_node = createNode(3, "string");
 
     return 0;
 }

@@ -54,13 +54,20 @@ NodeResult nodeDestroy(Node first_pointer,freeMapDataElements freeDataElement,
                        freeMapKeyElements freeKeyElement);
 
 /**
- * the function destory only one node(the one after the input),
- * include the key and the data, and free.
- * @param nodeBeforeDestroy
- * @param freeDataElement
- * @param freeKeyElement
- * @return NODE_NULL_PTRif one of the param is NULL, else NODE_SUCCESS
+ * get a data, and a node, and updata that node->data=data
+ * @param node - the node that we will update his data value
+ * @param data_element - the new data
+ * @param status - status that update: NODE_NULL_PTR or NODE_SUCCESS
  */
-NodeResult nodeDestroyOne(Node nodeBeforeDestroy,
-                          freeMapDataElements freeDataElement,
-                          freeMapKeyElements freeKeyElement);
+void nodeUpdateData (Node node, MapDataElement data_element, NodeResult *status);
+
+
+
+/**
+ * The function update node2 to be the next of node1. node1->next=node2
+ * @param node1 - to this node we will update the next
+ * @param node2 - node1->next=node2
+ * @param status - if node1 or node2 are NULL , the status will be NODE_NULL_PTR
+ * else: the status will be NODE_SUCCESS
+ */
+void nodeUpdateNext(Node node1,Node node2, NodeResult *status);
