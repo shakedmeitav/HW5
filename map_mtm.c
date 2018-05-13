@@ -126,6 +126,7 @@ MapResult mapPut(Map map, MapKeyElement keyElement, MapDataElement dataElement) 
     }
     if (key_in_the_map == 0) {                               //there is no key so we add a new node with the new_key and the new_data
         Node new_node;                                    //the new node that we will insert to the map
+        Node temp;
         map->iterator = map->first_pointer;                //initialize the iterator to the first node
         key_in_node = nodeReturnKey(map->iterator, &status_node);
         if (status_node == NODE_NULL_ARGUMENT) {           //the map is clear. we will create the new node to the first pointer
@@ -151,7 +152,7 @@ MapResult mapPut(Map map, MapKeyElement keyElement, MapDataElement dataElement) 
                 map->size_map++;
                 return MAP_SUCCESS;
             }
-            Node temp = map->iterator;                                           //save the address of this node, before we increae the iterator
+            temp = map->iterator;                                           //save the address of this node, before we increae the iterator
             map->iterator = nodeGetNextIteration(map->iterator, &status_node);   //increase the iterator
             if (status_node == NODE_NULL_PTR) {                                //it is mean that map->iterator=NULL, we have only one node
                 nodeUpdateNext(map->first_pointer, new_node,
@@ -182,7 +183,7 @@ MapResult mapPut(Map map, MapKeyElement keyElement, MapDataElement dataElement) 
 
             }
         if(key_in_the_map == 0){                                 //we need to insert tne node the the end of the list
-            nodeUpdateNext(map->first_pointer, new_node,&status_node);   //the status_node supposed to be NODE_SUCCESS
+            nodeUpdateNext(temp, new_node,&status_node);   //the status_node supposed to be NODE_SUCCESS
             map->iterator = NULL;
             map->size_map++;
             return MAP_SUCCESS;
