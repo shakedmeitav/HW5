@@ -24,13 +24,13 @@ MapKeyElement nodeReturnKey(Node node, NodeResult *status) {
 
 //return the next node of the current node
 Node nodeGetNextIteration(Node node, NodeResult *status){
-        if( node == NULL ){
-            *status= NODE_NULL_PTR;
-            return NULL;
-        }
-        *status= NODE_SUCCESS;
-        return node->next;
+    if( node == NULL ){
+        *status= NODE_NULL_PTR;
+        return NULL;
     }
+    *status= NODE_SUCCESS;
+    return node->next;
+}
 
 //return a new node
 Node createNode(MapKeyElement key_element, MapDataElement data_element) {
@@ -57,13 +57,13 @@ void nodeUpdateData (Node node, MapDataElement data_element, NodeResult *status)
 
 //The function update node2 to be the next of node1. node1->next=node2;
 void nodeUpdateNext(Node node1,Node node2, NodeResult *status){
-     if(node1==NULL || node2==NULL){
-            *status= NODE_NULL_PTR;
-            return;
-        }
-        *status= NODE_SUCCESS;
-        node1->next=node2;
+    if(node1==NULL || node2==NULL){
+        *status= NODE_NULL_PTR;
+        return;
     }
+    *status= NODE_SUCCESS;
+    node1->next=node2;
+}
 
 
 //the function return the data of the node input
@@ -96,7 +96,7 @@ NodeResult nodeDestroyOne(Node nodeBeforeDestroy,
                           freeMapDataElements freeDataElement,
                           freeMapKeyElements freeKeyElement){
     if (nodeBeforeDestroy == NULL ||  freeDataElement == NULL ||
-            freeKeyElement == NULL){
+        freeKeyElement == NULL){
         return NODE_NULL_PTR;
     }
     Node temp = nodeBeforeDestroy->next;
@@ -109,9 +109,9 @@ NodeResult nodeDestroyOne(Node nodeBeforeDestroy,
 
 //get a node, and a key, and update the key feild
 void nodeUpdateKey (Node node, MapKeyElement key_element, NodeResult * status){
-  if ( node == NULL || key_element == NULL){
-      *status = NODE_NULL_PTR;
-      return;
-  }
+    if ( node == NULL || key_element == NULL){
+        *status = NODE_NULL_PTR;
+        return;
+    }
     node->key_element=key_element;
 }

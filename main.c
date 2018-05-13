@@ -11,14 +11,12 @@ int main() {
 
     Map new_map = mapCreate(copyMapDataString, copyMapKeyInt,
     freeMapDataString, freeMapKeyInt, compareMapKeyInt);
-    int x = 3;
+    int x = 10;
     int y=5;
-    int z=1;
-    int w=7;
-    int a=2;
-    int b=5;
-    int c=1;
-    int d=4;
+    int z=2;
+    int w=1;
+    int r =22;
+    int *ptr5=&r;
     int *ptr1=&x;
     MapResult status_map = mapPut(new_map, ptr1,"shaked");
     int * ptr2 = &y;
@@ -27,15 +25,12 @@ int main() {
     status_map = mapPut(new_map, ptr3,"rotem");
     int * ptr4 = &w;
     status_map = mapPut(new_map, ptr4,"pashoshka");
-    int * ptr5=&a;
-    int *ptr6=&b;
-    int*ptr7=&c;
-    int* ptr8=&d;
-    status_map = mapPut(new_map, ptr5,"nonkonit");
-    status_map = mapPut(new_map, ptr6,"update");
-    status_map = mapPut(new_map, ptr7,"update_in_number_1");
-    status_map = mapPut(new_map, ptr8,"shoshan_zachor");
-    print_the_nodes_in_the_map(new_map);
+   print_the_nodes_in_the_map(new_map);
+    int  map_size=mapGetSize(new_map);
+        printf("the size of map according to the function mapGetSize is - %d\n",map_size);
+    bool test=mapContains(new_map, NULL);
+    printf("are the key %d in the map? the answer is:%d\n",
+           *(int *) ptr1, test); // 0 it false 1 is true
     mapDestroy(new_map);
     //Node new_node = createNode(ptr1, "string");
 

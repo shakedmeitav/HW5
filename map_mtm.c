@@ -262,14 +262,13 @@ MapResult mapPut(Map map, MapKeyElement keyElement, MapDataElement dataElement) 
     bool mapContains(Map map, MapKeyElement element) {
         if (map == NULL || element == NULL)
             return NULL;
-        NodeResult *status = NULL;
+        NodeResult status;
         MAP_FOREACH(Node, iterator, map) {
-            if (map->compare_key(nodeReturnKey(map->iterator, status),
+            if (map->compare_key(nodeReturnKey(map->iterator, &status),
                                  element) == 0)
                 return true;
         }
         return false;
-
     }
 
 // Removes a pair of key and data elements from the map
@@ -349,3 +348,5 @@ MapResult mapPut(Map map, MapKeyElement keyElement, MapDataElement dataElement) 
         }
         printf("the size of map is - %d\n", map->size_map);
         }
+
+
