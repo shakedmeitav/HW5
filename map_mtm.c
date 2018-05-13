@@ -87,7 +87,6 @@ void mapDestroy(Map map){
     free(map);
 }
 
-
 //return the number of elements in a map.
 //return -1 if a NULL pointer was sent.
 int mapGetSize(Map map) {
