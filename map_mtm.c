@@ -1,3 +1,4 @@
+
 #include "map_mtm.h"
 #include "node.h"
 #include <stdio.h>
@@ -6,12 +7,12 @@
 
 //function that insert a node to the niddle in the over nodes
 static Node insertNodeForLoop(Map map, MapKeyElement new_key, Node temp,
-                              MapResult* status_map, int* check_if_insert,
-                              Node new_node);
+MapResult* status_map, int* check_if_insert,
+        Node new_node);
 
 
 
-        struct Map_t{
+struct Map_t{
     int size_map;                         //count how many node we have
     Node iterator;
     Node first_pointer;
@@ -66,9 +67,9 @@ Map mapCopy(Map map) {
     Node previous_node = node_first;
     new_map->first_pointer=node_first;
     new_map->iterator=node_first;
-   map->iterator=map->first_pointer;
+    map->iterator=map->first_pointer;
     map->iterator = nodeGetNextIteration(map->iterator, &status_node);           //increase the iterator
-    for (map->iterator; map->iterator != NULL; mapGetNext(map)){
+    for (; map->iterator != NULL; mapGetNext(map)){
         MapKeyElement new_key = nodeReturnKey(map->iterator,&status_node);
         MapDataElement new_data = nodeReturnData(map->iterator,&status_node);
         Node new_node = createNode(new_key, new_data);
@@ -353,21 +354,22 @@ int compareMapKeyInt(MapKeyElement key1, MapKeyElement key2) {
 ///////////פונקציות עזר, למחוק אותה בסוף
 void print_the_nodes_in_the_map(Map map) {
     int number = 1;
-    NodeResult status_node = NODE_SUCCESS;
+   // NodeResult status_node = NODE_SUCCESS;
     printf("the map contain:\n");
     MAP_FOREACH(Node, iterator, map) {
-        MapKeyElement key = nodeReturnKey(map->iterator, &status_node);
-        MapDataElement data = nodeReturnData(map->iterator, &status_node);
-        printf("the node number %d - contain the key %d and the data - %s\n",
-               number, *(int *) key, data);
+ //       MapKeyElement key = nodeReturnKey(map->iterator, &status_node);
+   //     MapDataElement data = nodeReturnData(map->iterator, &status_node);
+  //      printf("the node number %d - contain the key %d and the data - %s\n",
+  //             number, *(int *) key, data);
         number++;
     }
     printf("the size of map is - %d\n", map->size_map);
 }
 
-
+/*
 ///////////פונקציות עזר, למחוק אותה בסוף
 void checkTheFunctionmapGetNext(Map map){
     map->iterator=NULL;
     MapKeyElement key=mapGetNext(map);
 }
+ */
