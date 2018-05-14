@@ -185,7 +185,6 @@ MapResult mapPut(Map map, MapKeyElement keyElement, MapDataElement dataElement) 
             }
             //MAP_OUT_OF_MEMORY if an allocation failed (Meaning the function for copying
             // * 	an element failed)
-
         }
         if(key_in_the_map == 0){                                 //we need to insert tne node the the end of the list
             nodeUpdateNext(temp, new_node,&status_node);   //the status_node supposed to be NODE_SUCCESS
@@ -193,8 +192,9 @@ MapResult mapPut(Map map, MapKeyElement keyElement, MapDataElement dataElement) 
             map->size_map++;
             return MAP_SUCCESS;
         }
-
+        return MAP_SUCCESS;
     }
+    return MAP_SUCCESS;
 }
 
 //Sets the internal iterator (also called current key element) to
