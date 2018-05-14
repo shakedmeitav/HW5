@@ -248,7 +248,7 @@ int compareMapKeyInt(MapKeyElement key1, MapKeyElement key2);     //compare a  2
 
 ///////פונקציית עזר
 void print_the_nodes_in_the_map(Map map);
-
+void checkTheFunctionmapGetNext(Map map);
 
 /*!
 * Macro for iterating over a map.

@@ -79,17 +79,6 @@ void nodeUpdateNext(Node node1,Node node2, NodeResult *status);
 
 
 
-/**
- * get a node, and a key, and update the key feild
- * @param node - some node
- * @param key_element - the key_element will insert into the node
- * @param status if key_element == NULL or node == null return NODE_NULL_PTR.
- * else: return NODE_SUCCESS
- */
-void nodeUpdateKey (Node node, MapKeyElement key_element, NodeResult * status);
-
-
-
 // the function destory only one node(the one after the input),
 // include the key and the data, and free
 NodeResult nodeDestroyOne(Node nodeBeforeDestroy,
