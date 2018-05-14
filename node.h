@@ -1,3 +1,8 @@
+
+//#ifndef NODE_H_
+//#define NODE_H_
+
+
 #include"map_mtm.h"
 
 typedef struct node *Node;
@@ -50,8 +55,8 @@ MapDataElement nodeReturnData(Node node, NodeResult *status);
  * @param freeKeyElement
  * @return NODE_NULL_PTR if first_pointer and else return NODE_SUCCESS
  */
-NodeResult nodeDestroy(Node first_pointer,freeMapDataElements freeDataElement,
-                       freeMapKeyElements freeKeyElement);
+Node nodeDestroy(Node first_pointer,freeMapDataElements freeDataElement,
+                 freeMapKeyElements freeKeyElement, NodeResult *status);
 
 /**
  * get a data, and a node, and updata that node->data=data
@@ -71,3 +76,11 @@ void nodeUpdateData (Node node, MapDataElement data_element, NodeResult *status)
  * else: the status will be NODE_SUCCESS
  */
 void nodeUpdateNext(Node node1,Node node2, NodeResult *status);
+
+
+
+// the function destory only one node(the one after the input),
+// include the key and the data, and free
+NodeResult nodeDestroyOne(Node nodeBeforeDestroy,
+                          freeMapDataElements freeDataElement,
+                          freeMapKeyElements freeKeyElement);

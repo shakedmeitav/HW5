@@ -24,13 +24,13 @@ MapKeyElement nodeReturnKey(Node node, NodeResult *status) {
 
 //return the next node of the current node
 Node nodeGetNextIteration(Node node, NodeResult *status){
-        if( node == NULL ){
-            *status= NODE_NULL_PTR;
-            return NULL;
-        }
-        *status= NODE_SUCCESS;
-        return node->next;
+    if( node == NULL ){
+        *status= NODE_NULL_PTR;
+        return NULL;
     }
+    *status= NODE_SUCCESS;
+    return node->next;
+}
 
 //return a new node
 Node createNode(MapKeyElement key_element, MapDataElement data_element) {
@@ -57,13 +57,13 @@ void nodeUpdateData (Node node, MapDataElement data_element, NodeResult *status)
 
 //The function update node2 to be the next of node1. node1->next=node2;
 void nodeUpdateNext(Node node1,Node node2, NodeResult *status){
-     if(node1==NULL || node2==NULL){
-            *status= NODE_NULL_PTR;
-            return;
-        }
-        *status= NODE_SUCCESS;
-        node1->next=node2;
+    if(node1==NULL || node2==NULL){
+        *status= NODE_NULL_PTR;
+        return;
     }
+    *status= NODE_SUCCESS;
+    node1->next=node2;
+}
 
 
 //the function return the data of the node input
@@ -76,33 +76,36 @@ MapDataElement nodeReturnData(Node node, NodeResult *status) {
     return node->data_element;
 }
 
-NodeResult nodeDestroy(Node first_pointer,freeMapDataElements freeDataElement, freeMapKeyElements freeKeyElement ){
+Node nodeDestroy(Node first_pointer,freeMapDataElements freeDataElement,
+                freeMapKeyElements freeKeyElement, NodeResult *status){
     if(first_pointer==NULL) {
-        return NODE_NULL_PTR;
+        *status=NODE_NULL_ARGUMENT;
+        return NULL;
     }
     while(first_pointer) {
         Node toDelete = first_pointer;
         first_pointer = first_pointer->next;
         freeDataElement(toDelete ->data_element);
-        freeKeyElement(toDelete ->key_element);
+       freeKeyElement(toDelete ->key_element);
         free(toDelete);
     }
-    return NODE_SUCCESS;
+    *status= NODE_SUCCESS;
+    return first_pointer;
 }
 
-// * the function destory only one node(the one after the input),
-// include the key and the data, and free.
+// the function destory only one node(the one after the input),
+// include the key and the data, and free
 NodeResult nodeDestroyOne(Node nodeBeforeDestroy,
                           freeMapDataElements freeDataElement,
                           freeMapKeyElements freeKeyElement){
     if (nodeBeforeDestroy == NULL ||  freeDataElement == NULL ||
-            freeKeyElement == NULL){
+        freeKeyElement == NULL){
         return NODE_NULL_PTR;
-    }
-    Node temp = nodeBeforeDestroy->next;
-    nodeBeforeDestroy->next = temp->next;
-    freeDataElement(temp->data_element);
-    freeKeyElement(temp->key_element);
-    free(temp);
-    return NODE_SUCCESS;
+}
+Node temp = nodeBeforeDestroy->next;
+nodeBeforeDestroy->next = temp->next;
+freeDataElement(temp->data_element);
+freeKeyElement(temp->key_element);
+free(temp);
+return NODE_SUCCESS;
 }
