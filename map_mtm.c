@@ -4,7 +4,14 @@
 #include <stdlib.h>
 #include <string.h>
 
-struct Map_t{
+//function that insert a node to the niddle in the over nodes
+static Node insertNodeForLoop(Map map, MapKeyElement new_key, Node temp,
+                              MapResult* status_map, int* check_if_insert,
+                              Node new_node);
+
+
+
+        struct Map_t{
     int size_map;                         //count how many node we have
     Node iterator;
     Node first_pointer;
@@ -14,6 +21,7 @@ struct Map_t{
     freeMapKeyElements  free_key_map;
     compareMapKeyElements compare_key;
 };
+
 
 //Allocates a new empty map
 Map mapCreate(copyMapDataElements copyDataElement, copyMapKeyElements copyKeyElement,
@@ -106,50 +114,36 @@ MapResult mapPut(Map map, MapKeyElement keyElement, MapDataElement dataElement) 
         return MAP_NULL_ARGUMENT;
     }
     NodeResult status_node = NODE_SUCCESS;
+    int check_if_insert_node=0;
     MapDataElement new_data = map->copy_data(dataElement);
     MapKeyElement new_key = map->copy_key(keyElement);
-    int key_in_the_map = 0;                                                           //flag to chek if the key in the map or not
     MapKeyElement key_in_node;                                                      //a variable that keep the key from a node
-    MAP_FOREACH(Node, iterator, map) {
-        key_in_node = nodeReturnKey(map->iterator, &status_node);
-        if (status_node ==
-            NODE_NULL_ARGUMENT) {                                       //not supposed to come here, because if node==NULL,
-            break;                                                                  //we will get out from the MAP_FOREACH
+    MapResult status_map;
+    bool check_if_key_in_map=mapContains(map,new_key);
+    if(check_if_key_in_map==true){                                               //the key is in the map
+        nodeUpdateData(map->iterator, new_data, &status_node);
+        map->iterator = NULL;
+        if (status_node == NODE_NULL_PTR) {
+            return MAP_NULL_ARGUMENT;
+        } else {
+            return MAP_SUCCESS;
         }
-        if (map->compare_key(new_key, key_in_node) ==
-            0) {             //if we here so we find the right key
-            key_in_the_map = 1;
-            nodeUpdateData(map->iterator, new_data, &status_node);
-            map->iterator = NULL;
-            if (status_node == NODE_NULL_PTR) {
-                return MAP_NULL_ARGUMENT;
-            } else {
-                return MAP_SUCCESS;
-            }
-            break;
-        }
-    }
-    if (key_in_the_map == 0) {                               //there is no key so we add a new node with the new_key and the new_data
+    } else {                                               //the key is not in the map
         Node new_node;                                    //the new node that we will insert to the map
-        Node temp;
+        Node temp,temp1;
         map->iterator = map->first_pointer;                //initialize the iterator to the first node
+        new_node = createNode(new_key, new_data);
+        if (new_node == NULL) {
+            map->iterator = NULL;
+            return MAP_OUT_OF_MEMORY;
+        }
         key_in_node = nodeReturnKey(map->iterator, &status_node);
         if (status_node == NODE_NULL_ARGUMENT) {           //the map is clear. we will create the new node to the first pointer
-            new_node = createNode(new_key, new_data);
-            if (new_node == NULL) {
-                map->iterator = NULL;
-                return MAP_OUT_OF_MEMORY;
-            }
             map->first_pointer = new_node;
             map->size_map++;
             return MAP_SUCCESS;
         } else {
             int different = map->compare_key(key_in_node, new_key);
-            new_node = createNode(new_key, new_data);
-            if (new_node == NULL) {
-                map->iterator = NULL;
-                return MAP_OUT_OF_MEMORY;
-            }
             if (different > 0) {
                 nodeUpdateNext(new_node, map->first_pointer, &status_node);   //the status_node supposed to be NODE_SUCCESS
                 map->first_pointer = new_node;
@@ -166,28 +160,13 @@ MapResult mapPut(Map map, MapKeyElement keyElement, MapDataElement dataElement) 
                 map->iterator = NULL;
                 return MAP_SUCCESS;
             }
-            for (map->iterator; map->iterator != NULL; mapGetNext(map)) {
-                key_in_node = nodeReturnKey(map->iterator,
-                                            &status_node);   //the status supposed to be ok beacuse if node=NULL, MAP_FOREACH will be finish
-                different = map->compare_key(key_in_node, new_key);
-                if (different < 0) {
-                    temp = map->iterator;
-                } else {                                                    //enter the new_node in the right place
-                    Node after_node = nodeGetNextIteration(temp,
-                                                           &status_node);           ////the status_node supposed to be NODE_SUCCESS
-                    nodeUpdateNext(new_node, after_node, &status_node);
-                    nodeUpdateNext(temp, new_node, &status_node);
-                    map->size_map++;
-                    key_in_the_map=1;
-                    map->iterator = NULL;
-                    return MAP_SUCCESS;
-                }
+            temp1 = insertNodeForLoop(map,new_key,temp,&status_map,&check_if_insert_node, new_node);
+            if(status_map==MAP_SUCCESS){
+                return MAP_SUCCESS;
             }
-            //MAP_OUT_OF_MEMORY if an allocation failed (Meaning the function for copying
-            // * 	an element failed)
         }
-        if(key_in_the_map == 0){                                 //we need to insert tne node the the end of the list
-            nodeUpdateNext(temp, new_node,&status_node);   //the status_node supposed to be NODE_SUCCESS
+        if(check_if_insert_node==0){                                 //we need to insert tne node the the end of the list
+            nodeUpdateNext(temp1, new_node,&status_node);   //the status_node supposed to be NODE_SUCCESS
             map->iterator = NULL;
             map->size_map++;
             return MAP_SUCCESS;
@@ -196,6 +175,35 @@ MapResult mapPut(Map map, MapKeyElement keyElement, MapDataElement dataElement) 
     }
     return MAP_SUCCESS;
 }
+
+
+static Node insertNodeForLoop(Map map, MapKeyElement new_key, Node temp,
+                              MapResult* status_map, int* check_if_insert,
+                              Node new_node){
+    NodeResult status_node;
+    int different;
+    for (; map->iterator != NULL; mapGetNext(map)) {
+        MapKeyElement key_in_node;
+        key_in_node = nodeReturnKey(map->iterator,&status_node);   //the status supposed to be ok beacuse if node=NULL, MAP_FOREACH will be finish
+        different = map->compare_key(key_in_node, new_key);
+        if (different < 0) {
+            temp = map->iterator;
+        } else {                                                    //enter the new_node in the right place
+            Node after_node = nodeGetNextIteration(temp, &status_node);           //the status_node supposed to be NODE_SUCCESS
+            nodeUpdateNext(new_node, after_node, &status_node);
+            nodeUpdateNext(temp, new_node, &status_node);
+            map->size_map++;
+            *check_if_insert=1;
+            map->iterator = NULL;
+            *status_map=MAP_SUCCESS;
+            return map->iterator;
+        }
+    }
+    *status_map=MAP_ITEM_DOES_NOT_EXIST;
+    return temp;
+}
+
+
 
 //Sets the internal iterator (also called current key element) to
 //the first key element in the map
