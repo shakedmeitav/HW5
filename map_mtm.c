@@ -51,6 +51,8 @@ Map mapCreate(copyMapDataElements copyDataElement, copyMapKeyElements copyKeyEle
 //reates a copy of target map.
 //Iterator values for both maps is undefined after this operation.
 Map mapCopy(Map map) {
+    if(map==NULL)
+        return NULL;
     NodeResult status_node;
     Map new_map = mapCreate(map->copy_data, map->copy_key, map->free_data_map,
                             map->free_key_map, map->compare_key);
@@ -314,41 +316,7 @@ MapResult mapRemove(Map map, MapKeyElement keyElement) {
     }
 }
 
-
-//function that copy the data from type string
-MapDataElement copyMapDataString(MapDataElement data) {
-    char *new_string = malloc(sizeof(char) * strlen(data) + 1);
-    strcpy(new_string, ((char *) data));
-    return new_string;
-}
-
-//function that copy the key from type int
-MapKeyElement copyMapKeyInt(MapKeyElement key) {
-    int *new_key = key;
-    return new_key;
-}
-
-//free a data from type string
-void freeMapDataString(MapDataElement data) {
-    free(data);
-}
-
-//free a kew from type int
-void freeMapKeyInt(MapKeyElement key) {
-    return;
-}
-
-//compare a  2 keys, values from int
-int compareMapKeyInt(MapKeyElement key1, MapKeyElement key2) {
-    if (*(int *) key1 > *(int *) key2) {
-        return 1;
-    } else if (*(int *) key1 == *(int *) key2) {
-        return 0;
-    } else {
-        return -1;
-    }
-}
-
+/*
 
 
 ///////////פונקציות עזר, למחוק אותה בסוף
@@ -365,7 +333,7 @@ void print_the_nodes_in_the_map(Map map) {
     }
     printf("the size of map is - %d\n", map->size_map);
 }
-
+*/
 /*
 ///////////פונקציות עזר, למחוק אותה בסוף
 void checkTheFunctionmapGetNext(Map map){
