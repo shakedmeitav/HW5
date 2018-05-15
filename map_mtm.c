@@ -88,9 +88,11 @@ Map mapCopy(Map map) {
     if (status_node == NODE_NULL_ARGUMENT) {
         return new_map;                   // its mean that we dont have a nodes
     }
+    MapKeyElement copy_key_first=key_first;
     MapDataElement data_first= nodeReturnData(map->first_pointer,&status_node);
     //no need to check if status is NULL, already check for first pointer,
-    Node node_first = createNode(key_first,data_first);
+    MapDataElement copy_data_first=data_first;
+    Node node_first = createNode(copy_key_first,copy_data_first);
     Node previous_node = node_first;
     new_map->first_pointer=node_first;
     new_map->iterator=node_first;
@@ -98,8 +100,10 @@ Map mapCopy(Map map) {
     map->iterator = nodeGetNextIteration(map->iterator, &status_node);           //increase the iterator
     for (; map->iterator != NULL; mapGetNext(map)){
         MapKeyElement new_key = nodeReturnKey(map->iterator,&status_node);
+        MapKeyElement copy_key = new_key;
         MapDataElement new_data = nodeReturnData(map->iterator,&status_node);
-        Node new_node = createNode(new_key, new_data);
+        MapDataElement copy_data=new_data;
+        Node new_node = createNode(copy_key, copy_data);
         nodeUpdateNext(previous_node,new_node, &status_node);
         previous_node = new_node;
     }
