@@ -77,7 +77,7 @@ MapDataElement nodeReturnData(Node node, NodeResult *status) {
 }
 
 Node nodeDestroy(Node first_pointer,freeMapDataElements freeDataElement,
-                freeMapKeyElements freeKeyElement, NodeResult *status){
+                 freeMapKeyElements freeKeyElement, NodeResult *status){
     if(first_pointer==NULL) {
         *status=NODE_NULL_ARGUMENT;
         return NULL;
@@ -86,7 +86,7 @@ Node nodeDestroy(Node first_pointer,freeMapDataElements freeDataElement,
         Node toDelete = first_pointer;
         first_pointer = first_pointer->next;
         freeDataElement(toDelete ->data_element);
-       freeKeyElement(toDelete ->key_element);
+        freeKeyElement(toDelete ->key_element);
         free(toDelete);
     }
     *status= NODE_SUCCESS;
@@ -101,28 +101,28 @@ NodeResult nodeDestroyOne(Node nodeBeforeDestroy,
     if (nodeBeforeDestroy == NULL ||  freeDataElement == NULL ||
         freeKeyElement == NULL){
         return NODE_NULL_PTR;
-}
-Node temp = nodeBeforeDestroy->next;
-nodeBeforeDestroy->next = temp->next;
-freeDataElement(temp->data_element);
-freeKeyElement(temp->key_element);
-free(temp);
-return NODE_SUCCESS;
+    }
+    Node temp = nodeBeforeDestroy->next;
+    nodeBeforeDestroy->next = temp->next;
+    freeDataElement(temp->data_element);
+    freeKeyElement(temp->key_element);
+    free(temp);
+    return NODE_SUCCESS;
 }
 
 
 Node nodeDestroyFirst (Node node,
-                             freeMapDataElements freeDataElement,
-                             freeMapKeyElements freeKeyElement
-,NodeResult *status){
+                       freeMapDataElements freeDataElement,
+                       freeMapKeyElements freeKeyElement
+        ,NodeResult *status){
     if (node == NULL ||  freeDataElement == NULL ||
         freeKeyElement == NULL) {
         *status= NODE_NULL_PTR;
         return node;
     }
-        freeDataElement(node->data_element);
-        freeKeyElement(node->key_element);
-        free(node);
-        *status= NODE_SUCCESS;
-        return node;
+    freeDataElement(node->data_element);
+    freeKeyElement(node->key_element);
+    free(node);
+    *status= NODE_SUCCESS;
+    return node;
 }

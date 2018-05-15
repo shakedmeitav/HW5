@@ -50,6 +50,119 @@ static int createDestroyTest(int *tests_passed) {
     return test_number;
 }
 
+static int mapPutTest(int *tests_passed) {
+    _print_mode_name("Testing mapPut function");
+    int test_number = 1;
+    int a[6] = {0, 1, 2, 3, 4, 5};
+    Map map = mapCreate(copyInt, copyInt, freeInt, freeInt, compareInt);
+    MapResult mr;
+    _print_test_number(test_number, __LINE__);
+    mr = mapPut(NULL, &a[0], &a[1]);
+    test( mr != MAP_NULL_ARGUMENT , __LINE__, &test_number, "mapPut doesn't return MAP_NULL_ARGUMENT on NULL map input", tests_passed);
+ //   mr = mapPut(map, NULL, &a[1]);
+  //  test( mr == MAP_SUCCESS , __LINE__, &test_number, "mapPut return MAP_SUCCESS on NULL key input", tests_passed);
+  //  mr = mapPut(map, &a[0], NULL);
+   // test( mr == MAP_SUCCESS , __LINE__, &test_number, "mapPut return MAP_SUCCESS on NULL data input", tests_passed);
+    mr = mapPut(map, &a[0], &a[1]);
+    test( mr != MAP_SUCCESS , __LINE__, &test_number, "mapPut doesn't return MAP_SUCCESS on valid data input", tests_passed);
+    mapPut(map, &a[2], &a[3]);
+    mapGetFirst(map);
+    mapPut(map, &a[4], &a[5]);                         //Implementation dependent
+    test( mapGetNext(map) != NULL, __LINE__, &test_number, "mapPut doesn't set iterator be NULL after insertion", tests_passed);
+    bool ordered = true;
+    int k = 0;
+    MAP_FOREACH(int*, i, map) {
+        if((a[k] != *i)) {
+            ordered = false;
+            break;
+        }
+        k+=2;
+    }//                                         Inserting keys order: low->mid->high
+    test( !ordered , __LINE__, &test_number, "mapPut doesn't order the keys correctly, Insertion from low to high", tests_passed);
+    mapDestroy(map);
+    map = mapCreate(copyInt, copyInt, freeInt, freeInt, compareInt);
+    mapPut(map, &a[4], &a[5]);
+    mapPut(map, &a[2], &a[3]);
+    mapPut(map, &a[0], &a[1]);
+    ordered = true;
+    k = 0;
+    MAP_FOREACH(int*, i, map) {
+        if((a[k] != *i)) {
+            ordered = false;
+            break;
+        }
+        k+=2;
+    }//                                         Inserting keys order: high->mid->low
+    test( !ordered , __LINE__, &test_number, "mapPut doesn't order the keys correctly, Insertion from high to low", tests_passed);
+    mapDestroy(map);
+    map = mapCreate(copyInt, copyInt, freeInt, freeInt, compareInt);
+    mapPut(map, &a[2], &a[3]);
+    mapPut(map, &a[4], &a[5]);
+    mapPut(map, &a[0], &a[1]);
+    k = 0;
+    ordered = true;
+    MAP_FOREACH(int*, i, map) {
+        if((a[k] != *i)) {
+            ordered = false;
+            break;
+        }
+        k+=2;
+    }//                                            Inserting keys order: small->high->middle(in between them)
+    test( !ordered , __LINE__, &test_number, "mapPut doesn't order the keys correctly, Insertion in the middle", tests_passed);
+    mr = mapPut(map, &a[2], &a[1]);
+    test( mr != MAP_SUCCESS , __LINE__, &test_number, "mapPut doesn't allow to Re-write data on existing key", tests_passed);
+    MapDataElement data = mapGet(map, &a[2]);
+    test( *(int *)data != a[1] , __LINE__, &test_number, "mapPut doesn't rewrite the data on existing key", tests_passed);
+    _print_test_success(test_number);
+    *tests_passed += 1;
+    mapDestroy(map);
+    return test_number;
+}
+
+static int mapGetSizeTest(int *tests_passed) {
+    _print_mode_name("Testing mapGetSize function");
+    int test_number = 1;
+    _print_test_number(test_number, __LINE__);
+    test( mapGetSize(NULL) != -1 , __LINE__, &test_number, "mapGetSize doesn't return -1 on NULL map Input", tests_passed);
+    Map map = mapCreate(copyInt, copyInt, freeInt, freeInt, compareInt);
+    test( mapGetSize(map) != 0 , __LINE__, &test_number, "mapGetSize doesn't return 0 on empty map Input", tests_passed);
+    int a[2] = {0, 1};
+    mapPut(map, &a[0], &a[1]);
+    test( mapGetSize(map) != 1 , __LINE__, &test_number, "mapGetSize doesn't return right value", tests_passed);
+    _print_test_success(test_number);
+    *tests_passed += 1;
+    mapDestroy(map);
+    return test_number;
+}
+
+static int mapCopyTest(int *tests_passed) {
+    _print_mode_name("Testing mapCopyTest function");
+    int test_number = 1;
+    _print_test_number(test_number, __LINE__);
+    int a[6] = {0, 1, 2, 3, 4, 5};
+    Map map = mapCreate(copyInt, copyInt, freeInt, freeInt, compareInt);
+    mapPut(map, &a[0], &a[1]);
+    mapPut(map, &a[2], &a[3]);
+    mapPut(map, &a[4], &a[5]);
+    Map map_copy = mapCopy(map);                          //Assuming mapGetSize works correctly.
+    test(mapGetSize(map) != mapGetSize(map_copy), __LINE__, &test_number, "mapCopy doesn't copy every pair of  elements", tests_passed);
+    test(mapCopy(NULL) != NULL ,__LINE__, &test_number, "mapCopy doesn't return NULL on NULL input", tests_passed);
+    int k = 0;
+    bool ordered = true;
+    MAP_FOREACH(int*, i, map_copy) {
+        if((a[k] != *i)) {
+            ordered = false;
+            break;
+        }
+        k+=2;
+    }
+    test( !ordered , __LINE__, &test_number, "mapCopy doesn't keep the order of the keys", tests_passed);
+    _print_test_success(test_number);
+    *tests_passed += 1;
+    mapDestroy(map);
+    mapDestroy(map_copy);
+    return test_number;
+}
 
 static int mapContainsTest(int *tests_passed) {
     _print_mode_name("Testing mapContains function");
@@ -139,9 +252,9 @@ int main() {
     int tests_passed = 0;
     int tests_number = 0;
     tests_number += createDestroyTest(&tests_passed);
-   // tests_number += mapPutTest(&tests_passed);
-   //tests_number += mapGetSizeTest(&tests_passed);
-   // tests_number += mapCopyTest(&tests_passed);
+    tests_number += mapPutTest(&tests_passed);
+    tests_number += mapGetSizeTest(&tests_passed);
+    tests_number += mapCopyTest(&tests_passed);
     tests_number += mapContainsTest(&tests_passed);
     tests_number += mapRemoveTest(&tests_passed);
     tests_number += mapClearTest(&tests_passed);
