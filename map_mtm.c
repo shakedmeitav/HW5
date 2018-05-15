@@ -5,7 +5,7 @@
 #include <string.h>
 
 
-//function that insert a node to the middle in the over nodes
+//this function that insert a node to the middle in the over nodes
 static Node insertNodeForLoop(Map map, MapKeyElement new_key, Node temp,
                               MapResult* status_map, int* check_if_insert,
                               Node new_node);
