@@ -5,7 +5,7 @@
 #include <string.h>
 
 
-//this function that insert a node to the middle in the over nodes
+//function that insert a node to the middle in the over nodes
 static Node insertNodeForLoop(Map map, MapKeyElement new_key, Node temp,
                               MapResult* status_map, int* check_if_insert,
                               Node new_node);
@@ -357,6 +357,25 @@ MapResult mapRemove(Map map, MapKeyElement keyElement) {
     Node nodeBefore = map->first_pointer;
     int success = 0;                    //flag- 0 if not find the key else 1
     NodeResult status;
+    Node check_if_null=nodeGetNextIteration(map->first_pointer, &status);
+    if(status==NODE_NULL_PTR)           //the map is empty
+        return MAP_ITEM_DOES_NOT_EXIST;
+
+    if(check_if_null == NULL) {
+        if (map->compare_key(keyElement,
+                             nodeReturnKey(map->first_pointer, &status)) == 0) {
+            Node new_first_pointer = nodeDestroyFirst(map->first_pointer,
+                                                      map->free_data_map,
+                                                      map->free_key_map,
+                                                      &status);
+            if (status == NODE_NULL_PTR) {
+                return MAP_NULL_ARGUMENT;
+            }
+            map->first_pointer = new_first_pointer;
+            return MAP_SUCCESS;
+        }
+    }
+
     MAP_FOREACH(Node, iterator, map) {
         if (map->compare_key(keyElement,
                              nodeReturnKey(map->iterator, &status)) == 0) {
