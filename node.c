@@ -17,7 +17,6 @@ MapKeyElement nodeReturnKey(Node node, NodeResult *status) {
         *status = NODE_NULL_ARGUMENT;
         return NULL;
     }
-
     *status = NODE_SUCCESS;
     return node->key_element;
 }
@@ -124,5 +123,5 @@ Node nodeDestroyFirst (Node node,
     freeKeyElement(node->key_element);
     free(node);
     *status= NODE_SUCCESS;
-    return node;
+    return NULL;
 }
