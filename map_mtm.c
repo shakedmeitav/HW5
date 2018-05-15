@@ -248,6 +248,11 @@ static void isnertNodeAfterTheFirst (Map map,Node new_node,
 
 static MapResult insertDataToNode (Map map, MapDataElement new_data,
                                    NodeResult * status_node){
+    MapDataElement old_data=nodeReturnData(map->iterator, status_node);
+    if(*status_node==NODE_NULL_ARGUMENT){
+        return MAP_NULL_ARGUMENT;
+    }
+    map->free_data_map(old_data);
     nodeUpdateData(map->iterator, new_data, status_node);
     map->iterator = NULL;
     if (*status_node == NODE_NULL_PTR)
@@ -379,7 +384,6 @@ MapResult mapRemove(Map map, MapKeyElement keyElement) {
             return MAP_SUCCESS;
         }
     }
-
     MAP_FOREACH(Node, iterator, map) {
         if (map->compare_key(keyElement,
                              nodeReturnKey(map->iterator, &status)) == 0) {
