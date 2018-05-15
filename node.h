@@ -84,3 +84,10 @@ void nodeUpdateNext(Node node1,Node node2, NodeResult *status);
 NodeResult nodeDestroyOne(Node nodeBeforeDestroy,
                           freeMapDataElements freeDataElement,
                           freeMapKeyElements freeKeyElement);
+
+//destroy only the dirst node in map remove (if the map have only one node)
+
+Node nodeDestroyFirst (Node node,
+                       freeMapDataElements freeDataElement,
+                       freeMapKeyElements freeKeyElement
+        ,NodeResult *status);

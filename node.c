@@ -109,3 +109,20 @@ freeKeyElement(temp->key_element);
 free(temp);
 return NODE_SUCCESS;
 }
+
+
+Node nodeDestroyFirst (Node node,
+                             freeMapDataElements freeDataElement,
+                             freeMapKeyElements freeKeyElement
+,NodeResult *status){
+    if (node == NULL ||  freeDataElement == NULL ||
+        freeKeyElement == NULL) {
+        *status= NODE_NULL_PTR;
+        return node;
+    }
+        freeDataElement(node->data_element);
+        freeKeyElement(node->key_element);
+        free(node);
+        *status= NODE_SUCCESS;
+        return node;
+}
