@@ -1,15 +1,12 @@
-/*
-* map.h
-*/
-#ifndef MAP_H_
-#define MAP_H_
+#ifndef MAP_MTM_H_
+#define MAP_MTM_H_
 
 #include <stdbool.h>
 
 /**
 * Generic Map Container
 *
-* Implements map container type.
+* Implements a map container type.
 * The map has an internal iterator for external use. For all functions
 * where the state of the iterator after calling that function is not stated,
 * it is undefined. That is you cannot assume anything about it.
@@ -24,8 +21,7 @@
 *   mapPut		    - Gives a specific key a given value.
 *   				  If the key exists, the value is overridden.
 *   				  This resets the internal iterator.
-*   mapGet  	    - Returns the data paired to a key which matches the given
- *   key.
+*   mapGet  	    - Returns the data paired to a key which matches the given key.
 *					  Iterator status unchanged
 *   mapRemove		- Removes a pair of (key,data) elements for which the key
 *                    matches a given element (by the key compare function).
@@ -34,9 +30,9 @@
 *   				  map, and returns it.
 *   mapGetNext		- Advances the internal iterator to the next key and
 *   				  returns it.
-*	 mapClear		- Clears the contents of the map. Frees all the elements of
+*	mapClear		- Clears the contents of the map. Frees all the elements of
 *	 				  the map using the free function.
-* 	 MAP_FOREACH	- A macro for iterating over the map's elements.
+* 	MAP_FOREACH	- A macro for iterating over the map's elements.
 */
 
 /** Type for defining the map */
@@ -44,11 +40,11 @@ typedef struct Map_t *Map;
 
 /** Type used for returning error codes from map functions */
 typedef enum MapResult_t {
-    MAP_SUCCESS,
-    MAP_OUT_OF_MEMORY,
-    MAP_NULL_ARGUMENT,
-    MAP_ITEM_ALREADY_EXISTS,
-    MAP_ITEM_DOES_NOT_EXIST
+	MAP_SUCCESS,
+	MAP_OUT_OF_MEMORY,
+	MAP_NULL_ARGUMENT,
+	MAP_ITEM_ALREADY_EXISTS,
+	MAP_ITEM_DOES_NOT_EXIST
 } MapResult;
 
 /** Data element data type for map container */
@@ -82,28 +78,23 @@ typedef int(*compareMapKeyElements)(MapKeyElement, MapKeyElement);
 /**
 * mapCreate: Allocates a new empty map.
 *
-* @param copyDataElement - Function pointer to be used for copying data elements
- * into
+* @param copyDataElement - Function pointer to be used for copying data elements into
 *  	the map or when copying the map.
-* @param copyKeyElement - Function pointer to be used for copying key elements
- * into
+* @param copyKeyElement - Function pointer to be used for copying key elements into
 *  	the map or when copying the map.
-* @param freeDataElement - Function pointer to be used for removing data
- * elements from
+* @param freeDataElement - Function pointer to be used for removing data elements from
 * 		the map
-* @param freeKeyElement - Function pointer to be used for removing key elements
- * from
+* @param freeKeyElement - Function pointer to be used for removing key elements from
 * 		the map
-* @param compareKeyElements - Function pointer to be used for comparing key
- * elements
+* @param compareKeyElements - Function pointer to be used for comparing key elements
 * 		inside the map. Used to check if new elements already exist in the map.
 * @return
 * 	NULL - if one of the parameters is NULL or allocations failed.
 * 	A new Map in case of success.
 */
 Map mapCreate(copyMapDataElements copyDataElement, copyMapKeyElements copyKeyElement,
-              freeMapDataElements freeDataElement, freeMapKeyElements freeKeyElement,
-              compareMapKeyElements compareKeyElements);
+	freeMapDataElements freeDataElement, freeMapKeyElements freeKeyElement,
+	compareMapKeyElements compareKeyElements);
 
 /**
 * mapDestroy: Deallocates an existing map. Clears all elements by using the
@@ -237,19 +228,6 @@ MapKeyElement mapGetNext(Map map);
 */
 MapResult mapClear(Map map);
 
-
-MapDataElement copyMapDataString(MapDataElement data);              //function that copy the data from type string
-MapKeyElement copyMapKeyInt (MapKeyElement key);                   //function that copy the key from type int
-void freeMapDataString(MapDataElement data);                       //free a data from type string
-void freeMapKeyInt(MapKeyElement key);                            //free a kew from type int
-int compareMapKeyInt(MapKeyElement key1, MapKeyElement key2);     //compare a  2 keys, values from int
-
-
-
-///////פונקציית עזר
-void print_the_nodes_in_the_map(Map map);
-void checkTheFunctionmapGetNext(Map map);
-
 /*!
 * Macro for iterating over a map.
 * Declares a new iterator for the loop.
@@ -259,4 +237,4 @@ void checkTheFunctionmapGetNext(Map map);
 		iterator ;\
 		iterator = mapGetNext(map))
 
-#endif /* MAP_H_ */
+#endif /* MAP_MTM_H_ */

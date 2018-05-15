@@ -94,7 +94,7 @@ Node nodeDestroy(Node first_pointer,freeMapDataElements freeDataElement,
 }
 
 // the function destory only one node(the one after the input),
-// include the key and the data, and free
+/// include the key and the data, and free
 NodeResult nodeDestroyOne(Node nodeBeforeDestroy,
                           freeMapDataElements freeDataElement,
                           freeMapKeyElements freeKeyElement){
