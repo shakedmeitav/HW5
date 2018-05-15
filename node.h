@@ -1,7 +1,7 @@
 
 //#ifndef NODE_H_
 //#define NODE_H_
-
+MAP_MTM_H_
 
 #include"map_mtm.h"
 
