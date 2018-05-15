@@ -10,7 +10,7 @@ static Node insertNodeForLoop(Map map, MapKeyElement new_key, Node temp,
                               MapResult* status_map, int* check_if_insert,
                               Node new_node);
 
-//function that insert a node to the first place, before all the nodes
+//this function that insert a node to the first place, before all the nodes
 static void isnertNodeToFirstPlace (Map map,Node new_node,
                                     NodeResult* status_node);
 
