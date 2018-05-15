@@ -153,6 +153,7 @@ MapResult mapPut(Map map, MapKeyElement keyElement, MapDataElement dataElement){
     bool check_if_key_in_map=mapContains(map,new_key);
     if(check_if_key_in_map==true){                                               //the key is in the map
         MapResult status_map=insertDataToNode(map,new_data, &status_node);
+        map->free_key_map(new_key);
         return status_map;
     } else {                                               //the key is not in the map
         Node temp,temp1;
