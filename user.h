@@ -1,8 +1,4 @@
-#include "mtm_ex3.h"
-#include "mtmflix.h"
-#include "set.h"
-#include "list.h"
-#include "series.h"
+
 #ifndef HW3_MTMFLIX_USER_H
 #define HW3_MTMFLIX_USER_H
 

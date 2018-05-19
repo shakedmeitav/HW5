@@ -38,7 +38,7 @@ User createUser (const char*name, int age, UserResult * status_user) {
 void userDestroy(User user){
     setDestroy(user->user_friend);
     setDestroy(user-> favorite_series);
-    free(user->name);
+    freeString (user->name);
     free(user);
 }
 
@@ -71,7 +71,7 @@ void* copyString (void* name){
     }
     char* new_name = name;
     int length=strlen(new_name)+1;
-    char* name_copy =malloc(length);
+    char* name_copy =malloc(sizeof(int)*length);
     if( name_copy==NULL){
         return NULL;
     }
@@ -80,7 +80,7 @@ void* copyString (void* name){
 }
 
 // get a string and free him
-void freeString (void* name) {
+void* freeString (void* name) {
     char* free_name = name;
     free(free_name);
 }
