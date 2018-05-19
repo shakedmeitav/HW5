@@ -1,5 +1,7 @@
-
-
+#include "list.h"
+#include "set.h"
+#include "series.h"
+#include "user.h"
 #include "mtmflix.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,52 +19,33 @@ struct mtmFlix_t{
 };
 
 
-/**
- * remove user from the lists user. the function remove the user
- * from the friends set, if the user exist their.
- * @param mtmflix - the system that had a series and users
- * @param username - the name of the user that will remove
- * @return ARGUMENT_NULL_MTMFLIX – if the function get a pointer NULL
- * EXIST_NOT_DOES_USER_MTMFLIX - the user does not exist or SUCCESS_MTMFLIX
- */
-MtmFlixResult mtmFlixRemoveUser(MtmFlix mtmflix, const char* username){
+//Create a new mtmFlixCreate. Return NULL if there was an error, else, return a newmtmFlix.
 
-        User user_to_delete=NULL;
-        MtmFlixResult status_mtmFlix;
-        ListResult status_list;
-        UserResult status_user;
-
-        If(name==NULL ||mtmFlix==NULL)
-        Return MTMFLIX_NULL_ARGUMENT;
-
-        LIST_FOREACH(List, iterator, mtmFlix->user){
-
-            Const char* Name_in_user= userReturnName(iterator,&status_user);
-            If(status_user==USER_NULL_ARGUMENT){
-                Return MTMFLIX_NULL_ARGUMENT;
-            }
-            if(strcmp(name_in_user, name)==0){
-                user_to_delete=iterator;
-                Status_list=listRemoveCurrent(mtmFlix->user);
-                If(status_list==LIST_NULL_ARGUMENT || status_list==LIST_INVALID_CURRENT){
-                    Return MTMFLIX_NULL_ARGUMENT;
-                }
-                Break;
-            }
-        }//finish list_foreach
-        If(user_to_delete==NULL){
-            MTMFLIX_USER_DOES_NOT_EXIST
-        }
-
-//remove the user from the set user_friend for every user we will do this.
-        LIST_FOREACH(List, iterator, mtmFlix->user){
-            status_user= userRemoveUserFriends (username, iterator);
-            If(status_user== USER_NULL_ARGUMENT)
-            Return   MTMFLIX_NULL_ARGUMENT;
-        }//finish LIST_FOREACH
-
-        Return MTMFLIX_SUCCESS;
+MtmFlix mtmFlixCreate(){
+    MtmFlixResult *status_mtmflix;
+    MtmFlix new_mtmFlix=malloc(sizeof(*new_mtmFlix));
+    if(new_mtmFlix==NULL){
+            return NULL;
     }
+    List new_user = listCreate( copyUser , userDestroy);
+    if(new_user==NULL){
+        *status_mtmflix=   MTMFLIX_NULL_ARGUMENT;
+        return NULL;
+    }
+    List* new_series;
+    for(int i=0; i<8; i++){
+        new_series[i]== listCreate(copySeries, seriesDestroy);
+        if(new_series[i]==NULL){
+            *status_mtmflix=MTMFLIX_NULL_ARGUMENT;
+            return NULL;
+            }
+    }//end for
+    User current_user= new_user;
+    Series current_series=new_series;
+    new_mtmFlix->user= current_user;
+    new_mtmFlix->series= current_series;
+    return new_mtmFlix;
 
+}
 
 
