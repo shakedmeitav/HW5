@@ -18,7 +18,7 @@ struct mtmFlix_t{
 
 
 /**
- * remove a user from the lists user. the function remove the user
+ * remove user from the lists user. the function remove the user
  * from the friends set, if the user exist their.
  * @param mtmflix - the system that had a series and users
  * @param username - the name of the user that will remove
