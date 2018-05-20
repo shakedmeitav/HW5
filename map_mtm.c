@@ -5,12 +5,12 @@
 #include <string.h>
 
 
-//function that insert a node to the middle in the over nodes
+//this function that insert a node to the middle in the over nodes
 static Node insertNodeForLoop(Map map, MapKeyElement new_key, Node temp,
                               MapResult* status_map, int* check_if_insert,
                               Node new_node);
 
-//function that insert a node to the first place, before all the nodes
+//this function that insert a node to the first place, before all the nodes
 static void isnertNodeToFirstPlace (Map map,Node new_node,
                                     NodeResult* status_node);
 
@@ -85,12 +85,14 @@ Map mapCopy(Map map) {
         return NULL;
     }
     MapKeyElement key_first = nodeReturnKey(map->first_pointer,&status_node);
+    MapKeyElement copy_key_first=map->copy_key(key_first);
     if (status_node == NODE_NULL_ARGUMENT) {
         return new_map;                   // its mean that we dont have a nodes
     }
     MapDataElement data_first= nodeReturnData(map->first_pointer,&status_node);
+    MapKeyElement copy_data_first=map->copy_data(data_first);
     //no need to check if status is NULL, already check for first pointer,
-    Node node_first = createNode(key_first,data_first);
+    Node node_first = createNode(copy_key_first, copy_data_first);
     Node previous_node = node_first;
     new_map->first_pointer=node_first;
     new_map->iterator=node_first;
@@ -98,8 +100,10 @@ Map mapCopy(Map map) {
     map->iterator = nodeGetNextIteration(map->iterator, &status_node);           //increase the iterator
     for (; map->iterator != NULL; mapGetNext(map)){
         MapKeyElement new_key = nodeReturnKey(map->iterator,&status_node);
+        MapKeyElement copy_new_key=map->copy_key(new_key);
         MapDataElement new_data = nodeReturnData(map->iterator,&status_node);
-        Node new_node = createNode(new_key, new_data);
+        MapDataElement copy_new_data=map->copy_data(new_data);
+        Node new_node = createNode(copy_new_key, copy_new_data);
         nodeUpdateNext(previous_node,new_node, &status_node);
         previous_node = new_node;
     }
@@ -149,6 +153,7 @@ MapResult mapPut(Map map, MapKeyElement keyElement, MapDataElement dataElement){
     bool check_if_key_in_map=mapContains(map,new_key);
     if(check_if_key_in_map==true){                                               //the key is in the map
         MapResult status_map=insertDataToNode(map,new_data, &status_node);
+        map->free_key_map(new_key);
         return status_map;
     } else {                                               //the key is not in the map
         Node temp,temp1;
@@ -244,6 +249,11 @@ static void isnertNodeAfterTheFirst (Map map,Node new_node,
 
 static MapResult insertDataToNode (Map map, MapDataElement new_data,
                                    NodeResult * status_node){
+    MapDataElement old_data=nodeReturnData(map->iterator, status_node);
+    if(*status_node==NODE_NULL_ARGUMENT){
+        return MAP_NULL_ARGUMENT;
+    }
+    map->free_data_map(old_data);
     nodeUpdateData(map->iterator, new_data, status_node);
     map->iterator = NULL;
     if (*status_node == NODE_NULL_PTR)
@@ -375,7 +385,6 @@ MapResult mapRemove(Map map, MapKeyElement keyElement) {
             return MAP_SUCCESS;
         }
     }
-
     MAP_FOREACH(Node, iterator, map) {
         if (map->compare_key(keyElement,
                              nodeReturnKey(map->iterator, &status)) == 0) {
