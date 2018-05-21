@@ -35,11 +35,11 @@ typedef struct Set_t *Set;
 
 /** Type used for returning error codes from set functions */
 typedef enum SetResult_t {
-	SET_SUCCESS,
-	SET_OUT_OF_MEMORY,
-	SET_NULL_ARGUMENT,
-	SET_ITEM_ALREADY_EXISTS,
-	SET_ITEM_DOES_NOT_EXIST
+    SET_SUCCESS,
+    SET_OUT_OF_MEMORY,
+    SET_NULL_ARGUMENT,
+    SET_ITEM_ALREADY_EXISTS,
+    SET_ITEM_DOES_NOT_EXIST
 } SetResult;
 
 /** Element data type for set container */

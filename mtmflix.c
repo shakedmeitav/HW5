@@ -27,7 +27,7 @@ static Series mtmFlixIfSeriesExist(MtmFlix mtmflix, const char* series_name,
 static bool mtmFlixIfUserExist(MtmFlix mtmflix,const char *name);
 //The function get the position of the genre in the array and return his name in string
 static const char * mtmFlixIntToGenreString(int genre);
-//static MtmFlixResult mtmFlixPrintAllGenre(MtmFlix mtmflix,FILE* outputStream);
+static MtmFlixResult mtmFlixPrintAllGenre(MtmFlix mtmflix,FILE* outputStream);
 
 static void mtmflixsortUserList(MtmFlix mtmflix, MtmFlixResult* status_mtmflix);
 
@@ -73,6 +73,8 @@ MtmFlix mtmFlixCreate() {
 }
 
 void mtmFlixDestroy(MtmFlix mtmflix){
+    if(mtmflix ==NULL)
+        return;
     LIST_FOREACH(User,iterator,mtmflix->user){
         ListElement iterator_ListElement=iterator;
         userDestroyForList(iterator_ListElement);
@@ -93,20 +95,24 @@ MtmFlixResult mtmFlixAddUser(MtmFlix mtmflix, const char* username, int age) {
     if(mtmflix == NULL || username == NULL){
         return MTMFLIX_NULL_ARGUMENT;
     }
-    if(age < MTM_MIN_AGE || age > MTM_MAX_AGE) {
-        return MTMFLIX_ILLEGAL_AGE;
-    }
+
 //test if the name is legal
     bool result = mtmFlixCheckDigitAndLetters(username);
     if(result==false) {
         return MTMFLIX_ILLEGAL_USERNAME;
     }
+
     LIST_FOREACH(User , iterator, mtmflix->user) {
         User Current_user = listGetCurrent(mtmflix->user);
         const char *current_name = userReturnName(Current_user,&status_user);
         if(strcmp(current_name, username) == 0)
             return MTMFLIX_USERNAME_ALREADY_USED;
     }
+
+    if(age < MTM_MIN_AGE || age > MTM_MAX_AGE) {
+        return MTMFLIX_ILLEGAL_AGE;
+    }
+
     User new_user = createUser(username, age, &status_user);
     if (status_user == USER_NULL_ARGUMENT){
         return MTMFLIX_NULL_ARGUMENT;
@@ -127,6 +133,7 @@ MtmFlixResult mtmFlixAddUser(MtmFlix mtmflix, const char* username, int age) {
 MtmFlixResult mtmFlixAddSeries(MtmFlix mtmflix, const char* name, int episodesNum,
                                Genre genre, int* ages, int episodeDuration){
     SeriesResult status_series;
+    MtmFlixResult status;
     if(mtmflix == NULL || name == NULL  ){
         return MTMFLIX_NULL_ARGUMENT;
     }
@@ -134,6 +141,11 @@ MtmFlixResult mtmFlixAddSeries(MtmFlix mtmflix, const char* name, int episodesNu
     bool result = mtmFlixCheckDigitAndLetters(name);
     if(result == false)
         return MTMFLIX_ILLEGAL_SERIES_NAME;
+    Series if_series_exist=mtmFlixIfSeriesExist(mtmflix, name, &status);
+    if(status == MTMFLIX_NULL_ARGUMENT)
+        return MTMFLIX_NULL_ARGUMENT;
+    if(if_series_exist==NULL)
+        return MTMFLIX_SERIES_DOES_NOT_EXIST;
     if ( episodesNum <= 0 )
         return MTMFLIX_ILLEGAL_EPISODES_NUM;
     if ( episodeDuration <= 0 ) {
@@ -409,16 +421,16 @@ MtmFlixResult mtmFlixSeriesJoin(MtmFlix mtmflix, const char* username,
 }
 
 
-/*//the function print the series in order the abc and the output go to outputStream.
+//the function print the series in order the abc and the output go to outputStream.
 //The print will be according to the genre.
-MtmFlixResult mtmFlixReportSeries(MtmFlix mtmflix, unsigned int seriesNum, FILE* outputStream){
+MtmFlixResult mtmFlixReportSeries(MtmFlix mtmflix, int seriesNum, FILE* outputStream){
     MtmFlixResult status_mtmFlix;
     if(mtmflix==NULL)
     return MTMFLIX_NULL_ARGUMENT;
 //sort every list for each genre
     for(int i=0; i<8; i++){
         ListResult status_list=listSort(mtmflix->series[i],seriesDistanceFromEachOther);
-        if(status_list == LIST_NULL_ATGUMENT){
+        if(status_list == LIST_NULL_ARGUMENT){
             return MTMFLIX_NULL_ARGUMENT;
         }//end if
         if(status_list == LIST_OUT_OF_MEMORY){
@@ -455,7 +467,7 @@ MtmFlixResult mtmFlixReportSeries(MtmFlix mtmflix, unsigned int seriesNum, FILE*
    return MTMFLIX_SUCCESS;
 
 }
-*/
+
 
 
 /////////// all the static function
@@ -580,7 +592,7 @@ static bool mtmFlixCheckDigitAndLetters(const char *name) {
     }
     return check_if_legal;
 }
-/*
+
 //The function print all the series with limit.
 static MtmFlixResult mtmFlixPrintAllGenre(MtmFlix mtmflix , FILE* outputStream){
     SeriesResult status_series;
@@ -598,7 +610,7 @@ static MtmFlixResult mtmFlixPrintAllGenre(MtmFlix mtmflix , FILE* outputStream){
     }
     return MTMFLIX_SUCCESS;
 }
-*/
+
 
 
 
@@ -669,10 +681,24 @@ MtmFlixResult mtmFlixReportUsers(MtmFlix mtmflix, FILE* outputStream){
             return MTMFLIX_NULL_ARGUMENT;
         if(status_user==USER_OUT_OF_MEMORY)
             return MTMFLIX_OUT_OF_MEMORY;
-        const char* for_print=mtmPrintUser(user_name,age,user_friend,
-                                           favorite_series);
+        const char* for_print=mtmPrintUser(user_name,age,list_user_friend,
+                                           list_favorite_series);
         fprintf(outputStream, for_print);
     }
     return MTMFLIX_SUCCESS;
 }
+/*
+MtmFlixResult mtmFlixGetRecommendations(MtmFlix mtmflix, const char* username,
+                                        int count, FILE* outputStream){
+    if(mtmflix==NULL ||username ==NULL)
+        return MTMFLIX_NULL_ARGUMENT;
+    if(count<0)
+        return MTMFLIX_ILLEGAL_NUMBER;
+   bool check_if_user_exist= mtmFlixIfUserExist(mtmflix,username);
+   if(check_if_user_exist==false)
+       return MTMFLIX_USER_DOES_NOT_EXIST;
+       }
+*/
+
+
 
