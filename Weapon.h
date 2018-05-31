@@ -11,7 +11,7 @@ enum Target {
 
 class Weapon {
     char *name;
-    Target targrt;
+    Target target;
     int hit_strength;
 
 public:
@@ -45,7 +45,6 @@ public:
      */
 
 };
-
 
 
 #endif //HW4_WEAPON_H
