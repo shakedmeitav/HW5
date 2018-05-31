@@ -6,8 +6,12 @@
           <option name="url" value="https://github.com/rotemfriedman/Hw3-mtmflix.git" />
           <option name="userName" value="" />
         </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="https://github.com/shakedmeitav/HW4_NEW.git" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
       </list>
     </option>
-    <option name="cloneParentDir" value="C:\Users\rotem\CLionProjects" />
+    <option name="cloneParentDir" value="C:\private\Shaked\Technion\shaked_technion\spring 2017-2018\matam\ex4" />
   </component>
 </application>
