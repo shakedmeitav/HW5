@@ -10,8 +10,12 @@
           <option name="url" value="https://github.com/rotemfriedman/HW3.git" />
           <option name="userName" value="" />
         </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="https://github.com/rotemfriedman/HW4.git" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
       </list>
     </option>
-    <option name="cloneParentDir" value="C:\Users\rotem\CLionProjects\HW3-mtmflix new new" />
+    <option name="cloneParentDir" value="C:\Users\rotem\CLionProjects\hw4" />
   </component>
 </application>
