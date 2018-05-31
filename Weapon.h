@@ -1,9 +1,7 @@
-
 #ifndef HW4_WEAPON_H
 #define HW4_WEAPON_H
 
-
-
+#include <iostream>
 
 enum Target {
     LEVEL,
@@ -12,14 +10,16 @@ enum Target {
 };
 
 class Weapon{
-    const char *name;
+    char *name;
     Target targrt;
     int hit_strength;
 
+public:
+    Weapon (const char * name,Target target,int hit_strength);
+    ~Weapon();
+
 };
 
-
-Weapon (const char * name,Target target,int hit_strength);
 
 
 
