@@ -34,8 +34,18 @@ public:
  */
  Target getTarget() const ;
 
+    /**
+     * the funtion return the hitStrength
+     * @return int hitStrengh
+     */
+   int getHitStrengh() const ;
+
+    /**
+     *
+     */
 
 };
+
 
 
 #endif //HW4_WEAPON_H
