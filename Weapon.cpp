@@ -23,7 +23,6 @@ Weapon::~Weapon() {
 
 
 Target Weapon::getTarget() const {
-
     return this->target;
 }
 
