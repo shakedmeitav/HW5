@@ -3,7 +3,6 @@
 #include <cassert>
 
 int main(){
-    Weapon weapon=Weapon("m-16", LEVEL, 10);
     Weapon weapon1=Weapon("gun",LIFE,3);
     Weapon weapon2=Weapon("knife",STRENGTH,2);
     Weapon weapon3=Weapon("sword",LEVEL,1);
@@ -16,5 +15,10 @@ int main(){
     assert(weapon1.getValue()==9);
     assert(weapon2.getValue()==4);
     assert(weapon3.getValue()==1);
+    assert(weapon1>weapon2);
+    assert(weapon2<weapon1);
+    assert(weapon1!=weapon2);
+    Weapon weapon4=Weapon("weapon4",LEVEL,1);
+    assert(weapon4==weapon3);
     return 0;
 }
