@@ -1,6 +1,8 @@
 #include "Weapon.h"
 #include "Player.h"
 #include <cassert>
+#include <iostream>
+using std::cout;
 
 int main(){
     Weapon weapon1=Weapon("gun",LIFE,3);
@@ -20,5 +22,8 @@ int main(){
     assert(weapon1!=weapon2);
     Weapon weapon4=Weapon("weapon4",LEVEL,1);
     assert(weapon4==weapon3);
+    cout<<weapon1;
+    cout<<weapon2;
+    cout<<weapon3;
     return 0;
 }

@@ -2,6 +2,7 @@
 #define HW4_WEAPON_H
 
 #include <iostream>
+using std::endl;
 
 enum Target {
     LEVEL,
@@ -14,15 +15,17 @@ class Weapon {
     Target target;
     int hit_strength;
 
+
 public:
-    /**
+    static char * getName(const Weapon& weapon);
+ /**
  * the functuin create a new struct weapon
  * @param name
  * @param target
  * @param hit_strength
  */
     Weapon(const char *name, Target target, int hit_strength);
-
+    Weapon()= default;
     /**
     * the function destroy struct weapon
     */
@@ -55,7 +58,7 @@ public:
  * @param weapon2
  * @return
  */
-bool operator==(const Weapon weapon1, const Weapon weapon2);
+bool operator==(const Weapon& weapon1, const Weapon& weapon2);
 
 /**
  *  the fuction get 2 weapon and check if their value different.
@@ -64,7 +67,7 @@ bool operator==(const Weapon weapon1, const Weapon weapon2);
  * @param weapon2
  * @return
  */
-bool operator!=(const Weapon weapon1, const Weapon weapon2);
+bool operator!=(const Weapon& weapon1, const Weapon& weapon2);
 /**
  * the fuction get 2 weapon and check if weapon1 value smaller then weapon2.
  * if yes return true else return false.
@@ -72,7 +75,7 @@ bool operator!=(const Weapon weapon1, const Weapon weapon2);
  * @param weapon2
  * @return
  */
-bool operator<(const Weapon weapon1, const Weapon weapon2);
+bool operator<(const Weapon& weapon1, const Weapon& weapon2);
 /**
  * the fuction get 2 weapon and check if weapon1 value bigger then weapon2.
  * if yes return true else return false.
@@ -80,6 +83,8 @@ bool operator<(const Weapon weapon1, const Weapon weapon2);
  * @param weapon2
  * @return
  */
-bool operator>(const Weapon weapon1, const Weapon weapon2);
+bool operator>(const Weapon& weapon1, const Weapon& weapon2);
+
+std::ostream& operator<<(std::ostream& fl,const Weapon& weapon);
 
 #endif //HW4_WEAPON_H
