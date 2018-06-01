@@ -3,18 +3,12 @@
 #include "Weapon.h"
 
 
-Weapon::Weapon(const char *name, Target target, int hit_strength) {
+Weapon::Weapon(const char *name, Target target, int hit_strength):
+name (new char[strlen(name)+1]),target(target),hit_strength(hit_strength){
     if (name == NULL ||
         (target != LEVEL && target != STRENGTH && target != LIFE))
         return;
-    int length = (int) strlen(name) + 1;
-    char *new_name = new char[length];
-    strcpy(new_name, name);
-    this->name = new_name;
-    Target new_target = target;
-    this->target = new_target;
-    int new_hit_strength = hit_strength;
-    this->hit_strength = new_hit_strength;
+    this->name=(char*)name;
 }
 
 Weapon::~Weapon() {
