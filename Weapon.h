@@ -38,11 +38,13 @@ public:
      * the funtion return the hitStrength
      * @return int hitStrengh
      */
-   int getHitStrengh() const ;
+   int getHitStrength() const ;
 
     /**
-     *
+     * if target
+     * @return int
      */
+   int getValue( ) const ;
 
 };
 
