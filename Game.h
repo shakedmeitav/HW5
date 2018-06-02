@@ -14,20 +14,22 @@ enum GameStatus{
 };
 
 
-class Player {
-    char* name;
-    int level;
-    int life;
-    int strength;
-    Weapon weapon;
-    int position_of_player;
+class Game {
+    int maxPlayer;
+    Player** array_player;
+    int last_player_in_the_array;
+
 
 
 public:
 
+    /**
+     * the metoda get name of a player, and increase his level
+     * @param playerName- the name of the player
+     * @return- if the player does not exist return - NAME_DOES_NOT_EXIST
+     */
+    GameStatus nextLevel(const char *playerName);
 
-
-GameStatus nextLevel(const char* playerName);
-
+};
 
 #endif //HW4_GAME_H
