@@ -49,12 +49,12 @@ public:
      */
     GameStatus nextLevel(const char *playerName);
 /**
- *
+ *the function
  * @param playerName1
  * @param playerNamr1
  * @return
  */
-  //  GameStatus fight(const char * playerName1, const cahr * playerNamr1);
+    GameStatus fight(const char * playerName1, const char * playerName2);
 
 };
 
