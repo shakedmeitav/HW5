@@ -4,6 +4,16 @@
 #include "Weapon.h"
 #include "Player.h"
 
+enum GameStatus{
+ NAME_ALREADY_EXSISTS,
+    GAME_FULL,
+    SUCCESS,
+    NAME_DOES_NOT_EXIST,
+    INVALID_PARAM,
+    FIGHT_FAILED
+};
+
+
 class Player {
     char* name;
     int level;
@@ -14,6 +24,10 @@ class Player {
 
 
 public:
+
+
+
+GameStatus nextLevel(const char* playerName);
 
 
 #endif //HW4_GAME_H
