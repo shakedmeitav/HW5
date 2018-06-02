@@ -20,8 +20,16 @@ class Game {
     int last_player_in_the_array;
 
 
-
 public:
+/**
+ * the functuin create a new classe game
+ * @param maxPlayer
+ */
+    Game(int maxPlayer);
+/**
+ * the function delete the Game(free him)
+ */
+    ~Game();
 
     /**
      * the metoda get name of a player, and increase his level
