@@ -43,6 +43,15 @@ public:
 
     bool isPlayer(const char* playerName) const;
 
+/**
+ * help function to fight metoda.
+ * check hows the target and lower it in damage
+ * @param player
+ * @param damage
+ * @param target
+ */
+    static void help_fight(Player& player,int damage,Target target);
+
     /**
      * increase the position of the player
      */
@@ -93,7 +102,15 @@ bool weaponIsWeak(int weaponMinStrength) const;
     bool operator>(const Player& player2)const;
 
     friend ostream& operator<<(ostream& os, const Player& player);
-
+/**
+ *
+ * @param player
+ * @return true if the fight success end false else
+ * if the 2 players not in the same position return false
+ * if the players have the same strong in there weapon return false
+ * else do the fight and lower the point of the weak player in damage;
+ */
+    bool fight(Player& player);
 
 };
 
