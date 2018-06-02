@@ -82,6 +82,19 @@ ostream& operator<<(ostream& os, const Player& player){
       "}"<<endl;
 }
 
+Player& Player::operator=(const Player &player){
+    if(this==&player)
+        return *this;
+    name=(new char[strlen(player.name)+1]);
+    delete [] player.name;
+    name=player.name;
+    level=player.level;
+    life=player.life;
+    strength=player.strength;
+    weapon_of_player=player.weapon_of_player;
+    position_of_player=player.position_of_player;
+    return *this;
+}
 
 bool Player::fight(Player& player){
     if (this->position_of_player != player.position_of_player)

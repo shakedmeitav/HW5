@@ -30,6 +30,17 @@ public:
  * the function delete the Game(free him)
  */
     ~Game();
+/**
+ *
+ * @param playerName
+ * @param weaponName
+ * @param target
+ * @param hit_strength
+ * @return
+ */
+    GameStatus addPlayer(const char * playerName, const char * weaponName,
+    Target target,int hit_strength);
+
 
     /**
      * the metoda get name of a player, and increase his level
@@ -37,6 +48,13 @@ public:
      * @return- if the player does not exist return - NAME_DOES_NOT_EXIST
      */
     GameStatus nextLevel(const char *playerName);
+/**
+ *
+ * @param playerName1
+ * @param playerNamr1
+ * @return
+ */
+  //  GameStatus fight(const char * playerName1, const cahr * playerNamr1);
 
 };
 

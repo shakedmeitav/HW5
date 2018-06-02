@@ -111,6 +111,12 @@ bool weaponIsWeak(int weaponMinStrength) const;
  * else do the fight and lower the point of the weak player in damage;
  */
     bool fight(Player& player);
+    /**
+     * the operator do Placement  between 2 players
+     * @param player
+     * @return
+     */
+    Player& operator=(const Player &player);
 
 };
 
