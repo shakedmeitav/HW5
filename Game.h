@@ -109,7 +109,9 @@ public:
  * @param os
  * @param game-the game that we want to print the players from him
  */
-   // friend ostream& operator<<(ostream& os,Game& game);
+    friend ostream& operator<<(ostream& os,Game& game);
+
+
 
 };
 

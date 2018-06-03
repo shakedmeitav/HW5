@@ -85,12 +85,11 @@ ostream &operator<<(ostream &os, const Player &player) {
        "}" << endl;
 }
 
-Player& Player::operator=(const Player &player) {
+Player &Player::operator=(const Player &player) {
     if (this == &player)
         return *this;
     delete[] this->name;
     name = (new char[strlen(player.name) + 1]);
-    strcpy(name,player.name);
     name = player.name;
     level = player.level;
     life = player.life;
