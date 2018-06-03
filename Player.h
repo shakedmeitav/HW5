@@ -14,6 +14,7 @@ class Player {
     Weapon weapon_of_player;
     int position_of_player;
 
+
 public:
 
  /**

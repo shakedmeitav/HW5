@@ -108,7 +108,6 @@ GameStatus Game::addStrength (const char* playerName, int strengthToAdd){
     return NAME_DOES_NOT_EXIST;
 }
 
-
 bool Game::removeAllPlayersWithWeakWeapon(int weaponStrangth){
     int check_if_remove=0; //if change to 1, than we already remove players
     for(int i=0; i<=(this->last_player_in_the_array); i++){

@@ -55,7 +55,6 @@ bool Player::isAlive() const {
     }
 }
 
-
 bool Player::weaponIsWeak(int weaponMinStrength) const {
     int value = this->weapon_of_player.getValue();
     if (value < weaponMinStrength)

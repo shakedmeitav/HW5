@@ -96,7 +96,6 @@ public:
  */
     GameStatus addStrength (const char* playerName, int strengthToAdd);
 
-
 /**
  * remove all the players that thier weapon is weaker than the weaponStrangth.
  * @param weaponStrangth - the weaponStrangth to compare
