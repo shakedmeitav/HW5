@@ -8,6 +8,10 @@ name (new char[strlen(name)+1]),target(target),hit_strength(hit_strength){
 strcpy(this->name,name);
 }
 
+Weapon::Weapon(const Weapon& weapon): name (new char[strlen(weapon.name)+1]),
+                                      target(weapon.target),
+                                      hit_strength(weapon.hit_strength){
+}
 Weapon::~Weapon() {
     delete[] this->name;
 }
