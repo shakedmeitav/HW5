@@ -8,7 +8,7 @@ Player::Player(const char *name, const Weapon &weapon) :
         level(1), strength(1), life(1), position_of_player(0),
         name(new char[strlen(name) + 1]) {
     this->weapon_of_player = weapon;
-    this->name = (char*) name;
+    strcpy(this->name,name);
 }
 
 

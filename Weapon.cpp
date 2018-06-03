@@ -5,10 +5,7 @@
 
 Weapon::Weapon(const char *name, Target target, int hit_strength):
 name (new char[strlen(name)+1]),target(target),hit_strength(hit_strength){
-    if (name == NULL ||
-        (target != LEVEL && target != STRENGTH && target != LIFE))
-        return;
-    this->name=(char*)name;
+strcpy(this->name,name);
 }
 
 Weapon::~Weapon() {
