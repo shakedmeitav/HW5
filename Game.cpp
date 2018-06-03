@@ -1,62 +1,133 @@
-#include "Game.h"
+#include <cstring>
+#include <iostream>
 #include "Player.h"
-#include "Weapon.h"
 
-Game::Game(int maxPlayer) :
-        maxPlayer(maxPlayer), array_player(new Player *[maxPlayer]),
-        last_player_in_the_array(-1) {
 
-}
-
-Game::~Game() {
-    for (int i = 0; i < this->last_player_in_the_array; i++) {
-        delete[] this->array_player[i];
-    }
-}
-
-GameStatus Game::addPlayer(const char *playerName, const char *weaponName,
-                           Target target, int hit_strength) {
-
-    for (int i = 0; i < this->last_player_in_the_array; i++) {
-        const bool check_if_the_player_exist = this->array_player[i]->isPlayer(
-                playerName);
-        if (check_if_the_player_exist == true)
-            return NAME_ALREADY_EXSISTS;
-    }
-    if (last_player_in_the_array == maxPlayer - 1)
-        return GAME_FULL;
-    Weapon weapon = Weapon(weaponName, target, hit_strength);
-    Player player = Player(playerName, weapon);
-    this->last_player_in_the_array += 1;
-    *(this->array_player[last_player_in_the_array]) = player;
-    return SUCCESS;
+Player::Player(const char* name, const Weapon& weapon):
+        level(1),strength(1),life(1), position_of_player(0),
+        name(new char[strlen(name)+1]){
+    this->weapon_of_player=weapon;
+    this->name=(char*)name;
 }
 
 
-GameStatus Game::fight(const char *playerName1, const char *playerName2) {
-    int player1_place_in_the_array = -1;
-    int player2_place_in_the_array = -1;
-    for (int i = 0; i < this->last_player_in_the_array; i++) {
-        const bool check_if_the_player1_exist = this->array_player[i]->isPlayer(
-                playerName1);
-        if (check_if_the_player1_exist == true) {
-            player1_place_in_the_array = i;
-        }
-        const bool check_if_the_player2_exist = this->array_player[i]->isPlayer(
-                playerName2);
-        if (check_if_the_player2_exist == true) {
-            player2_place_in_the_array = i;
-        }
-    }
-    if (player1_place_in_the_array == -1 || player2_place_in_the_array == -1)
-        return NAME_DOES_NOT_EXIST;
+Player::~Player(){
+    delete [] this->name;
+}
 
-    bool check_if_fight_success = this->array_player[player1_place_in_the_array]->isPlayer(
-            playerName2);
-    if (check_if_fight_success == false)
-        return FIGHT_FAILED;
-    else {
-        return SUCCESS;
-    }
 
+
+void Player:: nextLevel(){
+    this->level++;
+}
+
+
+bool Player::isPlayer(const char* playerName) const{
+    if(strcmp(playerName, this->name)==0)
+        return true;
+    else
+        return false;
+}
+
+
+void Player::makeStep(){
+    this->position_of_player++;
+}
+
+void Player::addLife(){
+    this->life++;
+}
+
+void Player::addStrength(int strenghToAdd){
+    this->strength=this->strength+strenghToAdd;
+}
+
+
+bool Player::isAlive ()const{
+    if(this->level>0 && this->strength>0 && this->life>0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+bool Player::weaponIsWeak(int weaponMinStrength) const{
+    int value=this->weapon_of_player.getValue();
+    if(value<weaponMinStrength)
+        return true;
+    else
+        return false;
+}
+
+
+bool Player::operator<(const Player& player2)const{
+    if(strcmp(this->name, player2.name)<0)
+        return true;
+    else
+        return false;
+}
+
+
+bool Player::operator>(const Player& player2)const{
+    if(strcmp(this->name, player2.name)>0)
+        return true;
+    else
+        return false;
+}
+
+ostream& operator<<(ostream& os, const Player& player){
+    os<<"{player name: "<<player.name<<", weapon:"<<
+      player.weapon_of_player.getName()<< "}"<<endl;
+}
+
+
+bool Player::fight(Player& player){
+    if (this->position_of_player != player.position_of_player)
+        return false;
+    Weapon& weapon1 = player.weapon_of_player;
+    Weapon& weapon2 = this->weapon_of_player;
+    if (weapon1 == weapon2)
+        return false;
+    if (weapon1 > weapon2){   //weapon of player stronger then this
+        Target target1 = weapon1.getTarget();
+        int damage=player.weapon_of_player.getHitStrength();
+        help_fight(player,damage,target1);
+        return true;
+    }else if(weapon2>weapon1){  //weapon of this stronger then player
+        Target target2 = weapon2.getTarget();
+        int damage=this->weapon_of_player.getHitStrength();
+        help_fight(player,damage,target2);
+        return true;
+    }
+    return true;
+}
+
+
+void Player::help_fight(Player& player,int damage,Target target){
+    if(target==LEVEL){
+        player.level-=damage;
+        if(player.level<0)
+            player.level=0;
+    }else if(target==LIFE){
+        player.life-=damage;
+        if(player.life<0)
+            player.life=0;
+    }else if(target==STRENGTH){
+        player.strength-=damage;
+        if(player.strength<0)
+            player.strength=0;
+    }
+    return;
+}
+
+void swap(Player& player1, Player& player2){
+    Player temp_player=player1;
+    player1=player2;
+    player2=temp_player;
+}
+
+
+char* Player::getName() const{
+    return this->name;
 }

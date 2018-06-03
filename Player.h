@@ -30,6 +30,10 @@ public:
  * the function destroy class Player
  */
     ~Player();
+
+    //copy constractor
+    Player(const Player& player);
+
     /**
  * increase the field level in 1
  */

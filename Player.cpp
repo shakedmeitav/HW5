@@ -11,6 +11,13 @@ Player::Player(const char *name, const Weapon &weapon) :
     strcpy(this->name,name);
 }
 
+Player::Player(const Player& player) : name(new char[strlen(player.name) + 1]),
+level(player.level), life(player.life), strength(player.strength),
+                                       position_of_player
+                                               (player.position_of_player),
+weapon_of_player(player.weapon_of_player){
+}
+
 
 Player::~Player() {
     delete[] this->name;
