@@ -36,7 +36,7 @@ GameStatus Game::addPlayer(const char *playerName, const char *weaponName,
 GameStatus Game::fight(const char *playerName1, const char *playerName2) {
     int player1_place_in_the_array = -1;
     int player2_place_in_the_array = -1;
-    for (int i = 0; i < this->last_player_in_the_array; i++) {
+    for (int i = 0; i <= this->last_player_in_the_array; i++) {
         const bool check_if_the_player1_exist = this->array_player[i]->isPlayer(
                 playerName1);
         if (check_if_the_player1_exist == true) {
@@ -108,7 +108,7 @@ GameStatus Game::addStrength (const char* playerName, int strengthToAdd){
     return NAME_DOES_NOT_EXIST;
 }
 
-bool Game::removeAllPlayersWithWeakWeapon(int weaponStrangth){
+bool Game::removeAllPlayersWIthWeakWeapon(int weaponStrangth){
     int check_if_remove=0; //if change to 1, than we already remove players
     for(int i=0; i<=(this->last_player_in_the_array); i++){
         bool check_weaknes_of_player=this->array_player[i]->
