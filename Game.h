@@ -102,7 +102,7 @@ public:
  * @param weaponStrangth - the weaponStrangth to compare
  * @return true- if the players removed. else false
  */
-    bool removeAllPlayersWithWeakWeapon(int weaponStrangth);
+bool removeAllPlayersWithWeakWeapon(int weaponStrangth);
 
     /**
  * this function print all the players sorted by the lexikografi name

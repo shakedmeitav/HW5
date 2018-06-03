@@ -144,6 +144,7 @@ void Game::max_sort(){
     }
 }
 
+
 int Game::index_of_max()const{
     int index_max=0;
     for(int i=1; i<=(this->last_player_in_the_array); i++){

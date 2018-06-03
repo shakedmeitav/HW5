@@ -51,6 +51,7 @@ public:
     int getValue() const;
 
 
+
     /**
      * operator hasama
      * @param weapon

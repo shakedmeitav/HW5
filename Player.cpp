@@ -80,6 +80,7 @@ bool Player::operator>(const Player &player2) const {
         return false;
 }
 
+
 ostream &operator<<(ostream &os, const Player &player) {
     return os << "{player name: " << player.name << ", weapon: "
                                              <<player.weapon_of_player<<"}" <<
