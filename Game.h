@@ -20,6 +20,17 @@ class Game {
     int last_player_in_the_array;
 
 
+    /**
+     * the function find the max index, sort by the playerName
+     * @return - the max index
+     */
+    int index_of_max()const;
+
+/**
+ * the function sort the array of the player by the playerName
+ */
+    void max_sort();
+
 public:
 /**
  * the functuin create a new classe game
@@ -56,6 +67,52 @@ public:
  */
     GameStatus fight(const char * playerName1, const char * playerName2);
 
+
+
+
+/**
+ * get a playerName and increase the position of the player
+ * @param playerName- the name of the player
+ * @return- NAME_DOES_NOT_EXIST if the name doesn't exist or SUCCESS
+ */
+    GameStatus makeStep(const char* playerName);
+
+
+/**
+ * get a playerName and increase his life
+ * @param playerName - the name of the player
+ * @return- NAME_DOES_NOT_EXIST if the name doesn't exist or SUCCESS
+ */
+    GameStatus addLife(const char* playerName);
+
+
+
+/**
+ * add the strength to the player
+ * @param playerName - the player name
+ * @param strengthToAdd - the strength that we need to add
+ * @return- INVALID_PARAM if the strengthToAdd is minos, or NAME_DOES_NOT_EXIST
+ * or SUCCESS
+ */
+    GameStatus addStrength (const char* playerName, int strengthToAdd);
+
+
+/**
+ * remove all the players that thier weapon is weaker than the weaponStrangth.
+ * @param weaponStrangth - the weaponStrangth to compare
+ * @return true- if the players removed. else false
+ */
+    bool removeAllPlayerWithWeakWeapon(int weaponStrangth);
+
+    /**
+ * this function print all the players sorted by the lexikografi name
+ * @param os
+ * @param game-the game that we want to print the players from him
+ */
+   // friend ostream& operator<<(ostream& os,Game& game);
+
 };
+
+
 
 #endif //HW4_GAME_H

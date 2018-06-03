@@ -61,3 +61,91 @@ GameStatus Game::fight(const char *playerName1, const char *playerName2) {
 
 }
 
+GameStatus Game::nextLevel(const char *playerName){
+    for(int i=0; i<=(this->last_player_in_the_array); i++){
+        bool check_player=(this->array_player[i])->isPlayer(playerName);
+        if(check_player==true){
+            this->array_player[i]->nextLevel();
+            return SUCCESS;
+        }
+    }
+    return NAME_DOES_NOT_EXIST;
+}
+
+GameStatus Game::makeStep(const char* playerName){
+    for(int i=0; i<=(this->last_player_in_the_array); i++){
+        bool check_player=(this->array_player[i])->isPlayer(playerName);
+        if(check_player==true){
+            this->array_player[i]->makeStep();
+            return SUCCESS;
+        }
+    }
+    return NAME_DOES_NOT_EXIST;
+}
+
+
+GameStatus Game::addLife(const char* playerName) {
+    for(int i=0; i<=(this->last_player_in_the_array); i++){
+        bool check_player=(this->array_player[i])->isPlayer(playerName);
+        if(check_player==true){
+            this->array_player[i]->addLife();
+            return SUCCESS;
+        }
+    }
+    return NAME_DOES_NOT_EXIST;
+}
+
+GameStatus Game::addStrength (const char* playerName, int strengthToAdd){
+    if(strengthToAdd<0)
+        return INVALID_PARAM;
+    for(int i=0; i<=(this->last_player_in_the_array); i++){
+        bool check_player=(this->array_player[i])->isPlayer(playerName);
+        if(check_player==true){
+            this->array_player[i]->addStrength(strengthToAdd);
+            return SUCCESS;
+        }
+    }
+    return NAME_DOES_NOT_EXIST;
+}
+
+
+bool Game::removeAllPlayerWithWeakWeapon(int weaponStrangth){
+    int check_if_remove=0; //if change to 1, than we already remove players
+    for(int i=0; i<=(this->last_player_in_the_array); i++){
+        bool check_weaknes_of_player=this->array_player[i]->
+                weaponIsWeak(weaponStrangth);
+        if(check_weaknes_of_player==true){
+            *(this->array_player[i])=*(this->array_player[last_player_in_the_array]);
+            last_player_in_the_array--;
+            check_if_remove=1;
+        }
+    }
+    if(check_if_remove==1)
+        return true;
+    else
+        return false;
+}
+
+//ostream& operator<<(ostream& os,Game& game){
+//    game.max_sort();
+//    for(int i=0; i<=(game.last_player_in_the_array); i++){
+//        os << "player " << i << ": " << (*game.array_player[i]->getName()) <<","<<endl;
+//    }
+//}
+
+void Game::max_sort(){
+    int length;
+    for(length=this->last_player_in_the_array; length>1; length--){
+        int index_max=index_of_max();
+        swap(*(array_player[index_max]),*(array_player[length-1]));
+    }
+}
+
+int Game::index_of_max()const{
+    int index_max=0;
+    for(int i=1; i<=(this->last_player_in_the_array); i++){
+        if(*(this->array_player[index_max])<(*(this->array_player[i])))
+            index_max=i;
+    }
+    return index_max;
+}

@@ -56,7 +56,13 @@ public:
      */
     char* getName() const;
 
+    /**
+     * operator hasama
+     * @param weapon
+     * @return weapon
+     */
     Weapon& operator=(const Weapon &weapon);
+
 };
 
 /**

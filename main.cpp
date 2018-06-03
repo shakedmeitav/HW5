@@ -12,9 +12,9 @@ Player player1= Player("rotem",weapon1);
   //  GameStatus status=game.addPlayer("rotem","gun",
   //              LIFE,2);
 
-    Weapon weapon2=Weapon("gune",LEVEL,2);
-    Player player2= Player("SHOSAN",weapon1);
-player2=player1;
+   // Weapon weapon2=Weapon("gune",LEVEL,2);
+  //  Player player2= Player("SHOSAN",weapon1);
+//player2=player1;
 
 }
 
