@@ -86,6 +86,7 @@ void test_game(){
     assert(game.fight("Galit" ,"Tomer")==SUCCESS);
     cout<<"Galit killed Tomer (alon should not be here):"<<endl;
     cout<<game<<endl;
+
 }
 
 
