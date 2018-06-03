@@ -3,6 +3,7 @@
 #include "Weapon.h"
 #include "Player.h"
 
+
 Player::Player(const char *name, const Weapon &weapon) :
         level(1), strength(1), life(1), position_of_player(0),
         name(new char[strlen(name) + 1]),weapon_of_player(weapon) {

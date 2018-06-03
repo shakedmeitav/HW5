@@ -40,6 +40,7 @@ public:
 /**
  * the function delete the Game(free him)
  */
+
     ~Game();
 /**
  *

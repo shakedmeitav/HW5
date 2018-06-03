@@ -122,6 +122,7 @@ bool weaponIsWeak(int weaponMinStrength) const;
      */
     Player& operator=(const Player &player);
 
+
 };
 
 /**

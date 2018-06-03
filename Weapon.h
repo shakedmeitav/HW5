@@ -65,7 +65,6 @@ public:
     friend std::ostream& operator<<(std::ostream& fl,const Weapon& weapon);
 };
 
-
 /**
  * the fuction get 2 weapon and check if there value eqal.
  * if yes return true else return false.

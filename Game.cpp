@@ -126,12 +126,7 @@ bool Game::removeAllPlayerWithWeakWeapon(int weaponStrangth){
         return false;
 }
 
-//ostream& operator<<(ostream& os,Game& game){
-//    game.max_sort();
-//    for(int i=0; i<=(game.last_player_in_the_array); i++){
-//        os << "player " << i << ": " << (*game.array_player[i]->getName()) <<","<<endl;
-//    }
-//}
+
 
 void Game::max_sort(){
     int length;
