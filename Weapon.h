@@ -56,6 +56,7 @@ public:
      */
     char* getName() const;
 
+    Weapon& operator=(const Weapon &weapon);
 };
 
 /**
