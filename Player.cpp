@@ -83,8 +83,7 @@ bool Player::operator>(const Player &player2) const {
 
 ostream &operator<<(ostream &os, const Player &player) {
     return os << "{player name: " << player.name << ", weapon: "
-                                             <<player.weapon_of_player<<"}" <<
-                                                                          endl;
+                                             <<player.weapon_of_player<<"}";
 }
 
 Player &Player::operator=(const Player &player) {
@@ -92,7 +91,7 @@ Player &Player::operator=(const Player &player) {
         return *this;
     delete[] this->name;
     name = (new char[strlen(player.name) + 1]);
-    name = player.name;
+    strcpy(name,player.name);
     level = player.level;
     life = player.life;
     strength = player.strength;

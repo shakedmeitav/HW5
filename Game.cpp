@@ -118,6 +118,7 @@ bool Game::removeAllPlayersWithWeakWeapon(int weaponStrangth){
             *(this->array_player[i])=*(this->array_player[last_player_in_the_array]);
             last_player_in_the_array--;
             check_if_remove=1;
+            i--;
         }
     }
     if(check_if_remove==1)
