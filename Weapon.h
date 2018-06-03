@@ -29,6 +29,8 @@ public:
     /**
     * the function destroy struct weapon
     */
+
+    Weapon(const Weapon& weapon);
     ~Weapon();
 
 /**
