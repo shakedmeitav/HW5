@@ -41,7 +41,6 @@ public:
     GameStatus addPlayer(const char * playerName, const char * weaponName,
     Target target,int hit_strength);
 
-
     /**
      * the metoda get name of a player, and increase his level
      * @param playerName- the name of the player

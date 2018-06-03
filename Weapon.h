@@ -25,7 +25,7 @@ public:
  * @param hit_strength
  */
     Weapon(const char *name, Target target, int hit_strength);
-    Weapon()= default;
+//    Weapon()= default;
     /**
     * the function destroy struct weapon
     */

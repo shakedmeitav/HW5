@@ -6,7 +6,7 @@
 
 Player::Player(const char *name, const Weapon &weapon) :
         level(1), strength(1), life(1), position_of_player(0),
-        name(new char[strlen(name) + 1]) {
+        name(new char[strlen(name) + 1]),weapon_of_player(weapon) {
     this->weapon_of_player = weapon;
     strcpy(this->name,name);
 }
@@ -85,11 +85,12 @@ ostream &operator<<(ostream &os, const Player &player) {
        "}" << endl;
 }
 
-Player &Player::operator=(const Player &player) {
+Player& Player::operator=(const Player &player) {
     if (this == &player)
         return *this;
     delete[] this->name;
     name = (new char[strlen(player.name) + 1]);
+    strcpy(name,player.name);
     name = player.name;
     level = player.level;
     life = player.life;

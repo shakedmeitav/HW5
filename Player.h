@@ -24,7 +24,7 @@ public:
  * update the other fields in the value 1 or 0
  */
     Player(const char* name, const Weapon& weapon);
-    Player() = default;
+  //  Player() = default;
 
     /**
  * the function destroy class Player

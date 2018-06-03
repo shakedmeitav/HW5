@@ -26,9 +26,9 @@ GameStatus Game::addPlayer(const char *playerName, const char *weaponName,
     if (last_player_in_the_array == maxPlayer - 1)
         return GAME_FULL;
     Weapon weapon = Weapon(weaponName, target, hit_strength);
-    Player player = Player(playerName, weapon);
+    Player* player = new Player(playerName, weapon);
     this->last_player_in_the_array += 1;
-    *(this->array_player[last_player_in_the_array]) = player;
+    this->array_player[last_player_in_the_array] = player;
     return SUCCESS;
 }
 

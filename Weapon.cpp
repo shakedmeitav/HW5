@@ -64,6 +64,7 @@ if(this==&weapon) {
 }
     delete[] name;
     name=new char[strlen(weapon.name)+1];
+    strcpy(name,weapon.name);
     target=weapon.target;
     hit_strength=weapon.hit_strength;
     return *this;
