@@ -138,3 +138,15 @@ void Player::help_fight(Player &player, int damage, Target target) {
     }
     return;
 }
+
+
+void swap(Player& player1, Player& player2){
+    Player temp_player=player1;
+    player1=player2;
+    player2=temp_player;
+}
+
+
+char* Player::getName() const{
+    return this->name;
+}
