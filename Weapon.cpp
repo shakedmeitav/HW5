@@ -36,9 +36,7 @@ int Weapon::getValue() const {
     return 0;
 }
 
-char* Weapon::getName(const Weapon & weapon) {
-    return weapon.name;
-}
+
 
 bool operator==(const Weapon& weapon1, const Weapon& weapon2){
     return weapon1.getValue()==weapon2.getValue();
@@ -58,6 +56,7 @@ bool operator>(const Weapon& weapon1, const Weapon& weapon2){
     return weapon1.getValue()>weapon2.getValue();
 }
 
+
 Weapon& Weapon::operator=(const Weapon &weapon){
 if(this==&weapon) {
     return *this;
@@ -71,7 +70,7 @@ if(this==&weapon) {
 }
 
 std::ostream& operator<<(std::ostream& fl,const Weapon& weapon){
-    fl << "{weapon name:" << weapon.getName(weapon) << ""
+    fl << "{weapon name:" << weapon.name << ""
             ",weapon value:" << weapon.getValue() << "}"<<endl;
 }
 

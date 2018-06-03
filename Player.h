@@ -122,11 +122,6 @@ bool weaponIsWeak(int weaponMinStrength) const;
      */
     Player& operator=(const Player &player);
 
-/**
- * the function return the name of the player
- */
-    char* getName() const;
-
 };
 
 /**

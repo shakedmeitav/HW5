@@ -3,7 +3,6 @@
 #include "Weapon.h"
 #include "Player.h"
 
-
 Player::Player(const char *name, const Weapon &weapon) :
         level(1), strength(1), life(1), position_of_player(0),
         name(new char[strlen(name) + 1]),weapon_of_player(weapon) {
@@ -144,9 +143,4 @@ void swap(Player& player1, Player& player2){
     Player temp_player=player1;
     player1=player2;
     player2=temp_player;
-}
-
-
-char* Player::getName() const{
-    return this->name;
 }

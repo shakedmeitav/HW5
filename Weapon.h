@@ -17,7 +17,6 @@ class Weapon {
 
 
 public:
-    static char * getName(const Weapon& weapon);
  /**
  * the functuin create a new struct weapon
  * @param name
@@ -63,7 +62,9 @@ public:
      */
     Weapon& operator=(const Weapon &weapon);
 
+    friend std::ostream& operator<<(std::ostream& fl,const Weapon& weapon);
 };
+
 
 /**
  * the fuction get 2 weapon and check if there value eqal.
@@ -99,6 +100,5 @@ bool operator<(const Weapon& weapon1, const Weapon& weapon2);
  */
 bool operator>(const Weapon& weapon1, const Weapon& weapon2);
 
-std::ostream& operator<<(std::ostream& fl,const Weapon& weapon);
 
 #endif //HW4_WEAPON_H
