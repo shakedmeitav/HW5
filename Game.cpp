@@ -109,7 +109,7 @@ GameStatus Game::addStrength (const char* playerName, int strengthToAdd){
 }
 
 
-bool Game::removeAllPlayerWithWeakWeapon(int weaponStrangth){
+bool Game::removeAllPlayersWithWeakWeapon(int weaponStrangth){
     int check_if_remove=0; //if change to 1, than we already remove players
     for(int i=0; i<=(this->last_player_in_the_array); i++){
         bool check_weaknes_of_player=this->array_player[i]->
@@ -127,12 +127,12 @@ bool Game::removeAllPlayerWithWeakWeapon(int weaponStrangth){
 }
 
 
-//ostream& operator<<(ostream& os,Game& game){
-//    game.max_sort();
-//    for(int i=0; i<=(game.last_player_in_the_array); i++){
-//        os << "player " << i << ": " << (*game.array_player[i]->getName()) <<","<<endl;
-//    }
-//}
+ostream& operator<<(ostream& os,Game& game){
+    game.max_sort();
+    for(int i=0; i<=(game.last_player_in_the_array); i++){
+        os << "player " << i << ": " <<(*game.array_player[i])<<","<<endl;
+    }
+}
 
 
 

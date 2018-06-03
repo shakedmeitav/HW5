@@ -69,10 +69,7 @@ if(this==&weapon) {
 }
 
 std::ostream& operator<<(std::ostream& fl,const Weapon& weapon){
-    fl << "{weapon name:" << weapon.name << ""
-            ",weapon value:" << weapon.getValue() << "}"<<endl;
+   return fl << "{weapon name:" << weapon.name << ""
+            ",weapon value:" << weapon.getValue() << "}";
 }
 
-char* Weapon::getName() const{
-    return this->name;
-}

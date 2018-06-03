@@ -50,10 +50,6 @@ public:
      */
     int getValue() const;
 
-    /**
-     * the function return the name of the weapon
-     */
-    char* getName() const;
 
     /**
      * operator hasama
