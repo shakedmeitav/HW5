@@ -60,3 +60,4 @@ GameStatus Game::fight(const char *playerName1, const char *playerName2) {
     }
 
 }
+
