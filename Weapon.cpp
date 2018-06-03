@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstring>
 #include "Weapon.h"
-
+#include "Player.h"
 
 Weapon::Weapon(const char *name, Target target, int hit_strength):
 name (new char[strlen(name)+1]),target(target),hit_strength(hit_strength){
@@ -68,4 +68,8 @@ if(this==&weapon) {
 std::ostream& operator<<(std::ostream& fl,const Weapon& weapon){
     fl << "{weapon name:" << weapon.getName(weapon) << ""
             ",weapon value:" << weapon.getValue() << "}"<<endl;
+}
+
+char* Weapon::getName() const{
+    return this->name;
 }

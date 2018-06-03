@@ -118,6 +118,11 @@ bool weaponIsWeak(int weaponMinStrength) const;
      */
     Player& operator=(const Player &player);
 
+/**
+ * the function return the name of the player
+ */
+    char* getName() const;
+
 };
 
 /**
@@ -127,5 +132,11 @@ bool weaponIsWeak(int weaponMinStrength) const;
  */
 ostream& operator<<(ostream& os, const Player& player);
 
+/**
+ * get 2 players and replace them;
+ * @param player1
+ * @param player2
+ */
+void swap(Player& player1, Player& player2);
 
 #endif //HW4_PLAYER_H

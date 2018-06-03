@@ -44,12 +44,15 @@ public:
     int getHitStrength() const;
 
     /**
-     *
+     * if target
      * @return int
      */
     int getValue() const;
 
-    Weapon& operator=(const Weapon &weapon);
+    /**
+     * the function return the name of the weapon
+     */
+    char* getName() const;
 
 };
 
