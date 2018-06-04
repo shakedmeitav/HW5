@@ -11,7 +11,7 @@ void test_player(){
     Player player1= Player("Inbal",weapon1);
     Weapon weapon2=Weapon("Gun",LEVEL,3);
     Player player2= Player("Or",weapon2);
-    //assert(player1.getName()=="Inbal");
+  //  assert(player1.getName()=="Inbal");
     player1.nextLevel();
     player1.nextLevel();
     player1.nextLevel();
@@ -84,8 +84,8 @@ void test_game(){
     cout<<"tomer is alive:"<<endl;
     cout<<game<<endl;
     assert(game.fight("Galit" ,"Tomer")==SUCCESS);
-    cout<<"Galit killed Tomer (alon should not be here):"<<endl;
-    cout<<game<<endl;
+   // cout<<"Galit killed Tomer (alon should not be here):"<<endl;
+    //cout<<game<<endl;
 
 }
 

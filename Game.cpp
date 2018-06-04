@@ -36,29 +36,33 @@ GameStatus Game::addPlayer(const char *playerName, const char *weaponName,
 GameStatus Game::fight(const char *playerName1, const char *playerName2) {
     int player1_place_in_the_array = -1;
     int player2_place_in_the_array = -1;
-    for (int i = 0; i < this->last_player_in_the_array; i++) {
+    for (int i = 0; i <= this->last_player_in_the_array; i++) {
         const bool check_if_the_player1_exist = this->array_player[i]->isPlayer(
                 playerName1);
-        if (check_if_the_player1_exist == true) {
+        if (check_if_the_player1_exist == true)
             player1_place_in_the_array = i;
-        }
         const bool check_if_the_player2_exist = this->array_player[i]->isPlayer(
                 playerName2);
-        if (check_if_the_player2_exist == true) {
+        if (check_if_the_player2_exist == true)
             player2_place_in_the_array = i;
-        }
     }
     if (player1_place_in_the_array == -1 || player2_place_in_the_array == -1)
         return NAME_DOES_NOT_EXIST;
-
-    bool check_if_fight_success = this->array_player[player1_place_in_the_array]->isPlayer(
-            playerName2);
+    bool check_if_fight_success = this->
+            array_player[player1_place_in_the_array]->fight(
+            *this->array_player[player2_place_in_the_array]);
+   for (int i = 0; i <= (this->last_player_in_the_array); i++) {
+    bool check_if_alive = this->array_player[i]->isAlive();
+        if (check_if_alive == false) {
+            *(this->array_player[i]) = *(this->array_player[last_player_in_the_array]);
+            last_player_in_the_array--;
+            i--;
+        }
+    }
     if (check_if_fight_success == false)
         return FIGHT_FAILED;
-    else {
+    else
         return SUCCESS;
-    }
-
 }
 
 GameStatus Game::nextLevel(const char *playerName){
@@ -127,22 +131,22 @@ bool Game::removeAllPlayersWithWeakWeapon(int weaponStrangth){
 }
 
 
-ostream& operator<<(ostream& os,Game& game){
-    game.max_sort();
-    for(int i=0; i<=(game.last_player_in_the_array); i++){
-        os << "player " << i << ": " <<(*game.array_player[i])<<","<<endl;
-    }
-}
+//ostream& operator<<(ostream& os,Game& game){
+//    game.max_sort();
+ //   for(int i=0; i<=(game.last_player_in_the_array); i++){
+ //       os << "player " << i << ": " <<(*game.array_player[i])<<","<<endl;
+ //   }
+//}
 
 
 
-void Game::max_sort(){
-    int length;
-    for(length=this->last_player_in_the_array; length>1; length--){
-        int index_max=index_of_max();
-        swap(*(array_player[index_max]),*(array_player[length-1]));
-    }
-}
+//void Game::max_sort(){
+ //   int length;
+ //   for(length=this->last_player_in_the_array; length>1; length--){
+ //       int index_max=index_of_max();
+  //      swap(*(array_player[index_max]),*(array_player[length-1]));
+ //   }
+//}
 
 
 int Game::index_of_max()const{

@@ -29,7 +29,7 @@ class Game {
 /**
  * the function sort the array of the player by the playerName
  */
-    void max_sort();
+ //   void max_sort();
 
 public:
 /**
@@ -108,7 +108,7 @@ bool removeAllPlayersWithWeakWeapon(int weaponStrangth);
  * @param os
  * @param game-the game that we want to print the players from him
  */
-    friend ostream& operator<<(ostream& os,Game& game);
+   // friend ostream& operator<<(ostream& os,Game& game);
 
 
 
