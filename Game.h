@@ -29,7 +29,7 @@ class Game {
 /**
  * the function sort the array of the player by the playerName
  */
- //   void max_sort();
+    void max_sort();
 
 public:
 /**
@@ -42,6 +42,13 @@ public:
  */
 
     ~Game();
+
+
+    //copy constractor
+    Game(const Game& game);
+
+
+
 /**
  *
  * @param playerName
@@ -108,9 +115,14 @@ bool removeAllPlayersWIthWeakWeapon(int weaponStrangth);
  * @param os
  * @param game-the game that we want to print the players from him
  */
-   // friend ostream& operator<<(ostream& os,Game& game);
+    friend ostream& operator<<(ostream& os,Game& game);
 
-
+    /**
+     * operator hasama for the game class
+     * @param game - the game that we want to give to "this"
+     * @return - reference of the new game
+     */
+    Game& operator=(const Game& game);
 
 };
 

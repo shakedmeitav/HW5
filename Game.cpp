@@ -14,6 +14,15 @@ Game::~Game() {
     }
 }
 
+
+
+Game::Game(const Game& game): maxPlayer(game.maxPlayer),
+                              last_player_in_the_array
+                                      (game.last_player_in_the_array),
+                              array_player(new Player* [maxPlayer]){
+}
+
+
 GameStatus Game::addPlayer(const char *playerName, const char *weaponName,
                            Target target, int hit_strength) {
 
@@ -131,22 +140,22 @@ bool Game::removeAllPlayersWIthWeakWeapon(int weaponStrangth){
 }
 
 
-//ostream& operator<<(ostream& os,Game& game){
-//    game.max_sort();
- //   for(int i=0; i<=(game.last_player_in_the_array); i++){
- //       os << "player " << i << ": " <<(*game.array_player[i])<<","<<endl;
- //   }
-//}
+ostream& operator<<(ostream& os,Game& game){
+    game.max_sort();
+    for(int i=0; i<=(game.last_player_in_the_array); i++){
+        os << "player " << i << ": " <<(*game.array_player[i])<<","<<endl;
+    }
+}
 
 
 
-//void Game::max_sort(){
- //   int length;
- //   for(length=this->last_player_in_the_array; length>1; length--){
- //       int index_max=index_of_max();
-  //      swap(*(array_player[index_max]),*(array_player[length-1]));
- //   }
-//}
+void Game::max_sort(){
+    int length;
+    for(length=this->last_player_in_the_array; length>1; length--){
+        int index_max=index_of_max();
+        swap(*(array_player[index_max]),*(array_player[length-1]));
+    }
+}
 
 
 int Game::index_of_max()const{
@@ -156,4 +165,19 @@ int Game::index_of_max()const{
             index_max=i;
     }
     return index_max;
+}
+
+
+Game& Game::operator=(const Game& game){
+    if (this == &game)
+        return *this;
+
+    delete[] this->array_player;
+    array_player=(new Player* [this->maxPlayer]);
+    for(int i=0; i<=game.last_player_in_the_array; i++){
+         (*(this->array_player[i])=*(game.array_player[i]));
+    }
+    this->last_player_in_the_array=game.last_player_in_the_array;
+    this->maxPlayer=game.maxPlayer;
+    return *this;
 }

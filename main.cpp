@@ -78,8 +78,8 @@ void test_game(){
     assert(game.addStrength("Hagit", 5)==SUCCESS);
     assert(game.addStrength("Hagit", -3)==INVALID_PARAM);
     assert(game.addStrength("hagit", 5)==NAME_DOES_NOT_EXIST);
-    assert(game.removeAllPlayersWithWeakWeapon(1)==false);
-    assert(game.removeAllPlayersWithWeakWeapon(4)==true);
+    assert(game.removeAllPlayersWIthWeakWeapon(1)==false);
+    assert(game.removeAllPlayersWIthWeakWeapon(4)==true);
     assert(game.fight("Galit" ,"tomer")==NAME_DOES_NOT_EXIST);
     cout<<"tomer is alive:"<<endl;
     cout<<game<<endl;
