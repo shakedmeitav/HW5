@@ -1,7 +1,6 @@
-cmake_minimum_required(VERSION 3.9.6)
-project(Hw3_mtmflix C)
+cmake_minimum_required(VERSION 3.9)
+project(HW4)
 
-set(CMAKE_C_STANDARD 99)
-add_executable(Hw3_mtmflix main.c mtmflix.c user.h user.c series.h series.c mtm_ex3.h mtmflix.h list.h set.h)
-target_link_libraries(Hw3_mtmflix ${CMAKE_SOURCE_DIR}/libmtm.a ${CMAKE_SOURCE_DIR}/libmtm_ex3.a)
-set(CMAKE_C_FLAGS "-std=c99 -Wall -Werror -pedantic-errors -DNDEBUG")
+set(CMAKE_CXX_STANDARD 11)
+
+add_executable(HW4 main.cpp Player.cpp Player.h Weapon.cpp Weapon.h Game.h Game.cpp)
