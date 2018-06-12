@@ -107,7 +107,7 @@ Array<T,SIZE>::~Array() {
  * @return array with the parapm of array
  */
 template <class T, int SIZE>
-Array& Array::operator=(const Array& array) {
+Array& Array<T,SIZE>::operator=(const Array& array) {
     if (this == &array) {
         return *this;
     }
@@ -128,7 +128,7 @@ Array& Array::operator=(const Array& array) {
  * @return the data in place index
  */
 template <class T, int SIZE>
-T& Array::operator[](int index) {
+T& Array<T,SIZE>::operator[](int index) {
 
     if(index< 0|| index>SIZE)
         throw std::out_of_range;            //////check if this is ok
@@ -143,16 +143,59 @@ T& Array::operator[](int index) {
  * @return the data in place index
  */
 template <class T, int SIZE>
-const T& Array::operator[](int index) const{
+const T& Array<T,SIZE>::operator[](int index) const{
     if(index< 0||index>SIZE)
         throw std::out_of_range;
     return data[index];
 }
+/**
+ * return the regular iterator that in the index 0, int the
+ * begining of the array
+ * @tparam T - the type of the values that in the array
+ * @tparam SIZE - the size of the array
+ * @return - the iterator in the begin array
+ */
+template<class T,int SIZE>
+Array<T,SIZE>::iterator Array::begin(){
+    return iterator(this, 0);
+}
 
 
+/**
+ * return the iterator from type const iterator that in the index 0, int the
+ * begining of the array
+ * @tparam T - the type of the values that in the array
+ * @tparam SIZE - the size of the array
+ * @return - the iterator in the begin array
+ */
+template<class T,int SIZE>
+Array<T,SIZE>::const_iterator Array::begin()const{
+    return const_iterator(this, 0);
+}
+
+/**
+ * the function return the last object of the array
+ * @tparam T
+ * @tparam SIZE
+ * @return iterator that point to the last place in the array
+ */
+template <class T, int SIZE>
+Array<T,SIZE>::iterator Array<T,SIZE>::end() {
+    return iterator(this, SIZE);
+}
+
+/**
+ *the function return the last object of the array
+ * @tparam T
+ * @tparam SIZE
+ * @return iterator that point to the last place in the array
+ */
+template <class T, int SIZE>
+Array<T,SIZE>::const_iterator Array<T,SIZE>::end() const {
+    return const_iterator(this,SIZE);
+}
 
 //the function of the regular iterator
-
 
 template<class T,int SIZE>
 Array<T,SIZE>::iterator::iterator(Array<T,SIZE>* array, int index) :
