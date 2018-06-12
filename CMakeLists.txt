@@ -3,4 +3,4 @@ project(HW4)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(HW4 main.cpp Player.cpp Player.h Weapon.cpp Weapon.h Game.h Game.cpp)
+add_executable(HW4 main.cpp)
