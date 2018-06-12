@@ -29,15 +29,10 @@ class iterator {
 
 public:
     T &operator*();
-
     iterator &operator++();
-
     iterator operator++(int);
-
     bool operator==(const iterator &iterator) const;
-
     bool operator!=(const iterator &iterator) const;
-
     iterator(const iterator &) = default;     //  check if we need default
     iterator &operator=(const iterator &) = default; //  check if we need default
     const T *operator->() const;
