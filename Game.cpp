@@ -22,7 +22,6 @@ Game::Game(const Game& game): maxPlayer(game.maxPlayer),
                               array_player(new Player* [maxPlayer]){
 }
 
-
 GameStatus Game::addPlayer(const char *playerName, const char *weaponName,
                            Target target, int hit_strength) {
 
