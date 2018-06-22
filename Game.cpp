@@ -9,9 +9,10 @@ Game::Game(int maxPlayer) :
 }
 
 Game::~Game() {
-    for (int i = 0; i < this->last_player_in_the_array; i++) {
-        delete[] this->array_player[i];
+    for (int i = 0; i <= this->last_player_in_the_array; i++) {
+        delete this->array_player[i];
     }
+    delete [] this->array_player;
 }
 
 
@@ -60,8 +61,8 @@ GameStatus Game::fight(const char *playerName1, const char *playerName2) {
     bool check_if_fight_success = this->
             array_player[player1_place_in_the_array]->fight(
             *this->array_player[player2_place_in_the_array]);
-   for (int i = 0; i <= (this->last_player_in_the_array); i++) {
-    bool check_if_alive = this->array_player[i]->isAlive();
+    for (int i = 0; i <= (this->last_player_in_the_array); i++) {
+        bool check_if_alive = this->array_player[i]->isAlive();
         if (check_if_alive == false) {
             *(this->array_player[i]) = *(this->array_player[last_player_in_the_array]);
             last_player_in_the_array--;
@@ -175,7 +176,7 @@ Game& Game::operator=(const Game& game){
     delete[] this->array_player;
     array_player=(new Player* [this->maxPlayer]);
     for(int i=0; i<=game.last_player_in_the_array; i++){
-         (*(this->array_player[i])=*(game.array_player[i]));
+        (*(this->array_player[i])=*(game.array_player[i]));
     }
     this->last_player_in_the_array=game.last_player_in_the_array;
     this->maxPlayer=game.maxPlayer;

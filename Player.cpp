@@ -109,9 +109,10 @@ bool Player::fight(Player &player) {
     if (weapon1 > weapon2) {   //weapon of player stronger then this
         Target target1 = weapon1.getTarget();
         int damage = player.weapon_of_player.getHitStrength();
-        help_fight(player, damage, target1);
+
+        help_fight(*this, damage, target1);
         return true;
-    } else if (weapon2 > weapon1) {  //weapon of this stronger then player
+    } else if (weapon2 < weapon1) {  //weapon of this stronger then player
         Target target2 = weapon2.getTarget();
         int damage = this->weapon_of_player.getHitStrength();
         help_fight(player, damage, target2);
