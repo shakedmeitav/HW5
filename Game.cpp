@@ -26,7 +26,7 @@ Game::Game(const Game& game): maxPlayer(game.maxPlayer),
 GameStatus Game::addPlayer(const char *playerName, const char *weaponName,
                            Target target, int hit_strength) {
 
-    for (int i = 0; i < this->last_player_in_the_array; i++) {
+    for (int i = 0; i <= this->last_player_in_the_array; i++) {
         const bool check_if_the_player_exist = this->array_player[i]->isPlayer(
                 playerName);
         if (check_if_the_player_exist == true)
